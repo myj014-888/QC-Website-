@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — QuadCorp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=8">
+<style>
+  .form-field { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; text-align:left; }
+  .form-field label { font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--faint); font-weight:600; }
+  .form-field input, .form-field textarea { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:13px 16px; color:var(--text); font-family:inherit; font-size:14px; outline:none; transition:border-color .2s; }
+  .form-field input:focus, .form-field textarea:focus { border-color:rgba(228,197,128,0.5); }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+  .chip { padding:8px 16px; border-radius:12px; font-size:13px; font-weight:500; cursor:pointer; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); color:var(--muted); transition:all .2s; }
+  .chip.on { background:rgba(228,197,128,0.18); border-color:rgba(228,197,128,0.5); color:var(--gold-bright); }
+  .form-card { max-width:560px; margin:0 auto; text-align:left; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="brand">
+      <svg viewBox="0 0 240 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="55%" stop-color="#F0E3C8"/><stop offset="100%" stop-color="#C9A25E"/></linearGradient></defs>
+        <circle cx="95" cy="62" r="38" stroke="url(#g)" stroke-width="9" fill="none"/>
+        <path d="M 172 34 A 38 38 0 1 0 172 90" stroke="url(#g)" stroke-width="9" stroke-linecap="round" fill="none"/>
+        <line x1="42" y1="118" x2="126" y2="34" stroke="url(#g)" stroke-width="9" stroke-linecap="round"/>
+        <line x1="72" y1="120" x2="98" y2="94" stroke="url(#g)" stroke-width="9" stroke-linecap="round"/>
+      </svg>
+      <span>QUADCORP</span>
+    </a>
+    <div class="nav-links">
+      <a class="lnk" href="index.html">Home</a>
+      <a class="lnk" href="crm.html">CRM</a>
+      <a class="lnk" href="websites.html">Websites</a>
+      <a class="lnk" href="stores.html">Stores</a>
+      <a class="lnk" href="about.html">About</a>
+      <a class="lnk" href="contact.html">Contact</a>
+    </div>
+    <a class="book" href="https://wa.me/27615829391?text=Hi%20QuadCorp!%20I%27d%20like%20to%20book%20a%20free%20consultation." target="_blank" rel="noopener">Book a Call</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <canvas class="velaris-bg" data-colors="#171310,#332818,#E4C580" data-shape="edge" data-rotation="-20"></canvas>
+  <div class="hero-scrim"></div>
+  <div class="inner">
+    <span class="tag">Contact Us</span>
+    <h1><span class="grad">Let's build something great.</span></h1>
+    <p>Book a free consultation, ask a question, or just say hello. We typically respond within a few hours.</p>
+  </div>
+</section>
+
+<section class="blk" style="padding-bottom:0;">
+  <div class="wrap about-grid" style="align-items:center;">
+    <div data-reveal>
+      <span class="tag">Real People, Real Replies</span>
+      <h2 style="font-size:clamp(26px,4vw,36px);margin:18px 0 14px;"><span class="grad">A team that</span><br><span class="grad">actually answers.</span></h2>
+      <p style="color:var(--muted);">No ticket queue, no chatbot loop. Message us and a real person on the team replies, usually within a few hours.</p>
+    </div>
+    <div class="tinted-photo wide" data-reveal>
+      <img src="https://images.unsplash.com/photo-1611679782010-5ac7ff596d9a?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" alt="A team member responding to a message on a laptop" loading="lazy" width="1200" height="750">
+    </div>
+  </div>
+</section>
+
+<section class="blk" style="padding-top:20px;padding-bottom:20px;">
+  <div class="wrap">
+    <div class="methods" style="margin-bottom:56px;" data-reveal-stagger>
+      <a class="card method" href="https://wa.me/27615829391?text=Hi%20QuadCorp!" target="_blank" rel="noopener"><div class="ml">WhatsApp</div><div class="mv gold">Chat with us now</div></a>
+      <a class="card method" href="tel:+27615829391"><div class="ml">Phone</div><div class="mv gold">(+27) 61 582 9391</div></a>
+      <a class="card method" href="mailto:quadcorp.co.za@gmail.com"><div class="ml">Email</div><div class="mv gold">quadcorp.co.za@gmail.com</div></a>
+      <a class="card method" href="https://instagram.com/quadcorp_digital" target="_blank" rel="noopener"><div class="ml">Instagram</div><div class="mv gold">@quadcorp_digital</div></a>
+    </div>
+
+    <div class="card form-card" data-reveal>
+      <h3 style="margin-bottom:22px;">Book an Appointment</h3>
+      <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--faint);font-weight:600;display:block;margin-bottom:10px;">I am interested in</label>
+      <div class="chips" id="chips">
+        <span class="chip">CRM Software</span>
+        <span class="chip">Website / Funnel</span>
+        <span class="chip">Online Store</span>
+        <span class="chip">Full Digital Transformation</span>
+      </div>
+      <div class="form-field"><label>Your Name</label><input id="f-name" type="text" placeholder="John Smith"></div>
+      <div class="form-field"><label>Business Name</label><input id="f-biz" type="text" placeholder="Acme Corp"></div>
+      <div class="form-field"><label>Email Address</label><input id="f-email" type="email" placeholder="john@acme.co.za"></div>
+      <div class="form-field"><label>Tell us about your project</label><textarea id="f-msg" rows="4" placeholder="What problem are you solving? What does success look like?"></textarea></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:6px;">
+        <span style="font-size:12px;color:var(--faint);">Opens WhatsApp with your message ready · We reply within hours</span>
+        <button class="btn btn-primary" onclick="sendWhats()">Send via WhatsApp →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" style="padding-top:0;">
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <span class="tag">FAQ</span>
+      <h2><span class="grad">Before you reach out.</span></h2>
+    </div>
+    <div class="faq" data-reveal>
+      <details>
+        <summary>Do you work with businesses outside your timezone?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+        <div class="a-wrap"><div class="a-inner"><p>Yes. We work with clients wherever they are, and calls, updates, and check-ins are scheduled around what actually works for you.</p></div></div>
+      </details>
+      <details>
+        <summary>How quickly will I hear back?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+        <div class="a-wrap"><div class="a-inner"><p>Usually within a few hours, always within one business day. WhatsApp is the fastest way to reach us.</p></div></div>
+      </details>
+      <details>
+        <summary>Do I need to know exactly what I want before contacting you?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+        <div class="a-wrap"><div class="a-inner"><p>Not at all. Most first conversations start with a problem, not a spec. We'll help you figure out what to actually build.</p></div></div>
+      </details>
+      <details>
+        <summary>Is the consultation really free?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+        <div class="a-wrap"><div class="a-inner"><p>Yes, no cost, no obligation. You'll walk away with a clear idea of scope and next steps either way.</p></div></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="fb">
+          <svg viewBox="0 0 240 130" width="40" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="gf" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="55%" stop-color="#F0E3C8"/><stop offset="100%" stop-color="#C9A25E"/></linearGradient></defs>
+            <circle cx="95" cy="62" r="38" stroke="url(#gf)" stroke-width="9" fill="none"/>
+            <path d="M 172 34 A 38 38 0 1 0 172 90" stroke="url(#gf)" stroke-width="9" stroke-linecap="round" fill="none"/>
+            <line x1="42" y1="118" x2="126" y2="34" stroke="url(#gf)" stroke-width="9" stroke-linecap="round"/>
+            <line x1="72" y1="120" x2="98" y2="94" stroke="url(#gf)" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+          <span style="font-family:'Space Grotesk';letter-spacing:0.28em;font-size:15px;">QUADCORP</span>
+        </div>
+        <p>From websites to AI, we engineer software that transforms ideas into results.</p>
+      </div>
+      <div class="foot-col"><h5>Services</h5><a href="crm.html">CRM Software</a><a href="websites.html">Websites &amp; Funnels</a><a href="stores.html">Online Stores</a></div>
+      <div class="foot-col"><h5>Company</h5><a href="about.html">About Us</a><a href="contact.html">Contact</a></div>
+      <div class="foot-col"><h5>Get in Touch</h5><a href="tel:+27615829391">(+27) 61 582 9391</a><a href="https://wa.me/27615829391" target="_blank" rel="noopener">WhatsApp Us</a><a href="mailto:quadcorp.co.za@gmail.com">quadcorp.co.za@gmail.com</a></div>
+    </div>
+    <div class="foot-bot"><span>&copy; 2026 QuadCorp. All Rights Reserved.</span><span>Engineered for the World</span></div>
+  </div>
+</footer>
+
+<script src="script.js?v=4"></script>
+<script src="effects.js?v=5"></script>
+<script>
+  document.querySelectorAll('#chips .chip').forEach(function (c) {
+    c.addEventListener('click', function () { c.classList.toggle('on'); });
+  });
+  function sendWhats() {
+    var name = document.getElementById('f-name').value || 'there';
+    var biz = document.getElementById('f-biz').value || '';
+    var email = document.getElementById('f-email').value || '';
+    var msg = document.getElementById('f-msg').value || '';
+    var chosen = Array.from(document.querySelectorAll('#chips .chip.on')).map(function (c) { return c.textContent; });
+    var services = chosen.length ? chosen.join(', ') : 'General Inquiry';
+    var text = "Hi QuadCorp! I'm " + name + (biz ? ' from ' + biz : '') +
+      '.\n\nInterested in: ' + services + '\n\nMessage: ' + msg + (email ? '\n\nEmail: ' + email : '');
+    window.open('https://wa.me/27615829391?text=' + encodeURIComponent(text), '_blank');
+  }
+</script>
+</body>
+</html>
