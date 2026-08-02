@@ -459,6 +459,14 @@
         el.style.filter = 'blur(' + ((1 - eased) * 10) + 'px)';
         el.style.opacity = String(eased);
         break;
+      case 'slide-left':
+        el.style.transform = 'translateX(' + ((1 - eased) * -64) + 'px)';
+        el.style.opacity = String(0.1 + eased * 0.9);
+        break;
+      case 'slide-right':
+        el.style.transform = 'translateX(' + ((1 - eased) * 64) + 'px)';
+        el.style.opacity = String(0.1 + eased * 0.9);
+        break;
     }
   }
 
@@ -529,6 +537,81 @@
     window.addEventListener('scroll', flag, { passive: true });
     window.addEventListener('resize', flag);
     requestAnimationFrame(loop);
+  });
+})();
+
+// Package stack selector — stacked-card picker for pricing plans (inspired by animated
+// testimonial carousels). Click prev/next, a dot, or a card behind the front one to switch;
+// the active card comes forward and flat while the others tilt back, and the active panel's
+// subtitle line blurs in word by word.
+(function () {
+  function initStack(stack) {
+    var faces = stack.querySelectorAll('.pkg-card-face');
+    var panels = stack.querySelectorAll('.pkg-content-panel');
+    var dots = stack.querySelectorAll('.pkg-dot');
+    var prevBtn = stack.querySelector('.pkg-prev');
+    var nextBtn = stack.querySelector('.pkg-next');
+    var count = faces.length;
+    if (!count) return;
+    var active = 0;
+    var rotations = [-8, 7, -5, 6, -7, 5];
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function wrapWords(panel) {
+      if (panel.dataset.wordsWrapped) return;
+      var sub = panel.querySelector('.pkg-face-sub-text');
+      if (!sub) return;
+      var words = sub.textContent.trim().split(/\s+/);
+      sub.innerHTML = words.map(function (w) { return '<span class="pkg-word">' + w + '&nbsp;</span>'; }).join('');
+      panel.dataset.wordsWrapped = '1';
+    }
+
+    function render() {
+      faces.forEach(function (f, i) {
+        f.classList.remove('active', 'behind');
+        if (i === active) {
+          f.classList.add('active');
+          f.style.transform = '';
+        } else {
+          f.classList.add('behind');
+          var offset = rotations[i % rotations.length];
+          f.style.transform = 'rotate(' + offset + 'deg) scale(0.94) translateY(10px)';
+        }
+      });
+      panels.forEach(function (p, i) { p.classList.toggle('active', i === active); });
+      dots.forEach(function (d, i) { d.classList.toggle('active', i === active); });
+
+      var activePanel = panels[active];
+      if (!activePanel) return;
+      wrapWords(activePanel);
+      var words = activePanel.querySelectorAll('.pkg-word');
+      words.forEach(function (w, i) {
+        if (reduceMotion) { w.style.opacity = '1'; w.style.filter = 'none'; return; }
+        w.style.transition = 'none';
+        w.style.filter = 'blur(8px)';
+        w.style.opacity = '0';
+        setTimeout(function () {
+          w.style.transition = 'filter .3s ease, opacity .3s ease';
+          w.style.filter = 'blur(0px)';
+          w.style.opacity = '1';
+        }, 20 * i);
+      });
+    }
+
+    function go(dir) { active = (active + dir + count) % count; render(); }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { go(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { go(1); });
+    dots.forEach(function (d, i) { d.addEventListener('click', function () { active = i; render(); }); });
+    faces.forEach(function (f, i) {
+      f.addEventListener('click', function () { if (i !== active) { active = i; render(); } });
+    });
+
+    render();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-pkg-stack]').forEach(initStack);
   });
 })();
 

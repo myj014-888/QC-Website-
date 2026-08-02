@@ -293,6 +293,68 @@ section.blk { padding: 90px 0; position: relative; }
 .carousel-arrow svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 2.2; }
 .carousel-arrow:disabled { opacity: 0.3; cursor: default; pointer-events: none; }
 
+/* PACKAGE STACK — stacked-card selector for pricing plans, inspired by animated testimonial
+   carousels: the active card sits forward and flat, the others tilt back behind it, and the
+   description's key line blurs in word by word when you switch. */
+.pkg-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; max-width: 980px; margin: 0 auto; }
+.pkg-stack-visual { position: relative; height: 320px; overflow: hidden; border-radius: 20px; }
+.pkg-card-face {
+  position: absolute; inset: 0; border-radius: 20px; padding: 32px;
+  background:
+    radial-gradient(circle at 26% 18%, rgba(214,216,220,0.16), transparent 55%),
+    linear-gradient(150deg, #211d16 0%, #16130d 55%, #0c0a07 100%);
+  border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 30px 70px rgba(0,0,0,0.55);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  transition: transform .45s cubic-bezier(.16,.8,.24,1), opacity .45s ease, box-shadow .45s ease, filter .45s ease;
+  transform-origin: bottom center; cursor: pointer; overflow: hidden;
+}
+.pkg-card-face::after {
+  content: attr(data-face-index); position: absolute; right: 10px; bottom: -34px;
+  font-family: 'Space Grotesk'; font-weight: 700; font-size: 148px; line-height: 1;
+  color: rgba(255,255,255,0.05); pointer-events: none; user-select: none;
+}
+.pkg-stack-visual .pkg-card-face:nth-of-type(3n+2) { background:
+    radial-gradient(circle at 26% 18%, rgba(214,216,220,0.14), transparent 55%),
+    linear-gradient(150deg, #1c1f21 0%, #121417 55%, #08090a 100%); }
+.pkg-stack-visual .pkg-card-face:nth-of-type(3n+3) { background:
+    radial-gradient(circle at 26% 18%, rgba(214,216,220,0.14), transparent 55%),
+    linear-gradient(150deg, #201a17 0%, #16110e 55%, #0b0806 100%); }
+.pkg-card-face .pkg-face-num { position: relative; z-index: 1; font-family: 'Space Grotesk'; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 12px; transition: opacity .3s ease; }
+.pkg-card-face h3 { position: relative; z-index: 1; font-size: clamp(24px, 3vw, 30px); margin-bottom: 6px; transition: opacity .3s ease; }
+.pkg-card-face .pkg-face-sub { position: relative; z-index: 1; color: var(--muted); font-size: 14px; transition: opacity .3s ease; }
+.pkg-card-face.active { transform: none; opacity: 1; z-index: 50; filter: none; box-shadow: 0 40px 90px rgba(0,0,0,0.6), 0 0 0 1px rgba(214,216,220,0.3); cursor: default; }
+.pkg-card-face.behind { opacity: 1; z-index: 1; filter: brightness(0.5) saturate(0.75); }
+.pkg-card-face.behind:hover { filter: brightness(0.68) saturate(0.85); }
+.pkg-card-face.behind h3, .pkg-card-face.behind .pkg-face-sub { opacity: 0; }
+.pkg-card-face .pkg-face-badge { position: absolute; top: 20px; right: 20px; z-index: 1; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; background: linear-gradient(135deg, #F0DCB0, var(--gold-deep)); color: #17130a; }
+
+.pkg-stack-content { display: flex; flex-direction: column; min-height: 320px; }
+.pkg-content-panel { display: none; }
+.pkg-content-panel.active { display: flex; flex-direction: column; height: 100%; }
+.pkg-content-panel h4 { font-size: 22px; margin-bottom: 6px; }
+.pkg-content-panel .pkg-price { font-family: 'Space Grotesk'; color: var(--gold); font-weight: 700; font-size: 15px; margin-bottom: 18px; }
+.pkg-content-panel .pkg-features { list-style: none; margin-bottom: 22px; }
+.pkg-content-panel .pkg-features li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: rgba(236,231,221,0.72); padding: 5px 0; }
+.pkg-content-panel .pkg-features li svg { width: 15px; height: 15px; stroke: var(--gold); fill: none; stroke-width: 2.2; flex-shrink: 0; margin-top: 4px; }
+.pkg-word { display: inline-block; }
+
+.pkg-stack-nav { display: flex; align-items: center; gap: 12px; margin-top: auto; padding-top: 16px; }
+.pkg-dots { display: flex; gap: 8px; align-items: center; margin-right: auto; }
+.pkg-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.18); cursor: pointer; transition: background .2s, transform .2s; border: none; padding: 0; }
+.pkg-dot.active { background: var(--gold); transform: scale(1.35); }
+.pkg-nav-btn { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color .2s, background .2s; flex-shrink: 0; }
+.pkg-nav-btn:hover { border-color: rgba(214,216,220,0.5); background: rgba(214,216,220,0.08); }
+.pkg-nav-btn svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 2.2; }
+
+@media (max-width: 900px) {
+  .pkg-stack { grid-template-columns: 1fr; gap: 40px; }
+  .pkg-stack-visual { height: 240px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pkg-card-face { transition: none; }
+  .pkg-word { filter: none !important; opacity: 1 !important; transition: none !important; }
+}
+
 /* ROADMAP CONNECTOR (4-step process) */
 .roadmap { position: relative; }
 .roadmap .road-line { position: absolute; top: 43px; left: 0; right: 0; height: 2px; background-image: repeating-linear-gradient(90deg, rgba(214,216,220,0.45) 0 10px, transparent 10px 20px); z-index: 0; pointer-events: none; }

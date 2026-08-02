@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=14">
+<link rel="stylesheet" href="styles.css?v=17">
 <style>
   .form-field { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; text-align:left; }
   .form-field label { font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--faint); font-weight:600; }
@@ -72,12 +72,12 @@
 
 <section class="blk" style="padding-bottom:0;">
   <div class="wrap about-grid" style="align-items:center;">
-    <div data-reveal>
+    <div data-reveal data-scroll-fx="slide-left">
       <span class="tag">Real People, Real Replies</span>
       <h2 style="font-size:clamp(26px,4vw,36px);margin:18px 0 14px;" data-scroll-fx="split-lines"><span class="grad">A team that</span><br><span class="grad">actually answers.</span></h2>
       <p style="color:var(--muted);">No ticket queue, no chatbot loop. Message us and a real person on the team replies, usually within a few hours.</p>
     </div>
-    <div class="tinted-photo wide" data-reveal>
+    <div class="tinted-photo wide" data-reveal data-scroll-fx="slide-right">
       <img data-scroll-fx="mono-color" src="https://images.unsplash.com/photo-1611679782010-5ac7ff596d9a?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" alt="A team member responding to a message on a laptop" loading="lazy" width="1200" height="750">
     </div>
   </div>
@@ -165,7 +165,7 @@
 </footer>
 
 <script src="script.js?v=4"></script>
-<script src="effects.js?v=11"></script>
+<script src="effects.js?v=13"></script>
 <script>
   document.querySelectorAll('#chips .chip').forEach(function (c) {
     c.addEventListener('click', function () { c.classList.toggle('on'); });

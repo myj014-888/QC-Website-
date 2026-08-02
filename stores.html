@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=14">
+<link rel="stylesheet" href="styles.css?v=17">
 </head>
 <body>
 
@@ -73,12 +73,12 @@
 
 <section class="blk">
   <div class="wrap about-grid" style="align-items:center;">
-    <div data-reveal>
+    <div data-reveal data-scroll-fx="slide-left">
       <span class="tag">Built To Convert</span>
       <h2 style="font-size:clamp(28px,4.5vw,40px);margin:18px 0 16px;"><span class="grad">From browsing to</span><br><span class="grad">checkout, seamless.</span></h2>
       <p style="color:var(--muted);">Every store we build is designed around one goal: turning visitors into paying customers, without the friction.</p>
     </div>
-    <div class="tinted-photo" data-reveal>
+    <div class="tinted-photo" data-reveal data-scroll-fx="slide-right">
       <img data-scroll-fx="mono-color" src="ecommerce-hero.jpg" alt="An online store shown on a laptop and phone, with a product catalogue and cart ready for checkout" loading="lazy" width="736" height="1104">
     </div>
   </div>
@@ -108,11 +108,64 @@
 
 <section class="blk" style="background:rgba(255,255,255,0.015);border-top:1px solid rgba(255,255,255,0.05);">
   <div class="wrap">
-    <div class="head" data-reveal data-scroll-fx="rise3d"><span class="tag">Pricing</span><h2><span class="grad">Scale at your pace.</span></h2><p>All prices are &ldquo;starting from&rdquo; — final quotes depend on catalogue size and features. Prices in ZAR, excluding VAT.</p></div>
-    <div class="grid g3" data-reveal-stagger>
-      <div class="plan"><h4>Shopify Store Setup</h4><div class="pr grad">from R10,000</div><div class="subl">Launch-ready store</div><ul><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Custom Shopify Theme Setup</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Mobile Responsive</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>SEO Metadata</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Domain &amp; SSL</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Payment Integration</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Product Upload &amp; Training</li></ul><a class="btn btn-ghost" href="https://wa.me/27615829391?text=Hi%20there,%20I%20am%20interested%20in%20the%20Shopify%20Store%20Setup%20package,%20can%20you%20please%20assist." target="_blank" rel="noopener">Get a Quote</a></div>
-      <div class="plan pop"><div class="badge-pop">Most Popular</div><h4>Shopify Full Service</h4><div class="pr grad">from R20,000</div><div class="subl">Done-for-you e-commerce</div><ul><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Everything in Store Setup</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Custom Brand Design</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>WhatsApp Integration</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Abandoned Cart Recovery</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Courier Integration</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Automation Workflows</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Priority Support</li></ul><a class="btn btn-primary" href="https://wa.me/27615829391?text=Hi%20there,%20I%20am%20interested%20in%20the%20Shopify%20Full%20Service%20package,%20can%20you%20please%20assist." target="_blank" rel="noopener">Get a Quote</a></div>
-      <div class="plan"><h4>Fully Custom Online Store</h4><div class="pr grad">By Consultation</div><div class="subl">Bespoke, engineered from the ground up</div><ul><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Fully Coded, No Templates</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Unlimited Products</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Third-Party Integrations</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Payment Gateway Setup</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Google Account Setup</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Courier Integration Setup</li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Built Around Your Brand, Exclusively</li></ul><a class="btn btn-ghost" href="https://wa.me/27615829391?text=Hi%20there,%20I%20am%20interested%20in%20the%20Fully%20Custom%20Online%20Store%20package,%20can%20you%20please%20assist." target="_blank" rel="noopener">Book Consultation</a></div>
+    <div class="head" data-reveal data-scroll-fx="rise3d"><span class="tag">Pricing</span><h2><span class="grad">Scale at your pace.</span></h2><p>Every store is scoped to your catalogue and features on a free consultation call, so the quote actually fits what you're building.</p></div>
+    <div class="pkg-stack" data-pkg-stack data-reveal>
+      <div class="pkg-stack-visual">
+        <div class="pkg-card-face" data-face-index="01"><span class="pkg-face-num">01 / 03</span><h3>Shopify Store Setup</h3><p class="pkg-face-sub">Launch-ready store</p></div>
+        <div class="pkg-card-face" data-face-index="02"><span class="pkg-face-badge">Most Popular</span><span class="pkg-face-num">02 / 03</span><h3>Shopify Full Service</h3><p class="pkg-face-sub">Done-for-you e-commerce</p></div>
+        <div class="pkg-card-face" data-face-index="03"><span class="pkg-face-num">03 / 03</span><h3>Fully Custom Store</h3><p class="pkg-face-sub">Bespoke, ground up</p></div>
+      </div>
+      <div class="pkg-stack-content">
+        <div class="pkg-content-panel">
+          <h4>Shopify Store Setup</h4>
+          <p class="pkg-face-sub-text">A launch-ready Shopify store with a custom theme, payments, and training so you can start selling fast.</p>
+          <div class="pkg-price">By Consultation</div>
+          <ul class="pkg-features">
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Custom Shopify Theme Setup</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Mobile Responsive</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>SEO Metadata</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Domain &amp; SSL</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Payment Integration</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Product Upload &amp; Training</li>
+          </ul>
+          <a class="btn btn-primary" href="https://wa.me/27615829391?text=Hi%20there,%20I%20am%20interested%20in%20the%20Shopify%20Store%20Setup%20package,%20can%20you%20please%20assist." target="_blank" rel="noopener">Book Consultation</a>
+        </div>
+        <div class="pkg-content-panel">
+          <h4>Shopify Full Service</h4>
+          <p class="pkg-face-sub-text">Done-for-you e-commerce with custom brand design, automation, and priority support built in.</p>
+          <div class="pkg-price">By Consultation</div>
+          <ul class="pkg-features">
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Everything in Store Setup</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Custom Brand Design</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>WhatsApp Integration</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Abandoned Cart Recovery</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Courier Integration</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Automation Workflows</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Priority Support</li>
+          </ul>
+          <a class="btn btn-primary" href="https://wa.me/27615829391?text=Hi%20there,%20I%20am%20interested%20in%20the%20Shopify%20Full%20Service%20package,%20can%20you%20please%20assist." target="_blank" rel="noopener">Book Consultation</a>
+        </div>
+        <div class="pkg-content-panel">
+          <h4>Fully Custom Online Store</h4>
+          <p class="pkg-face-sub-text">A fully coded, bespoke store built around your brand with no templates and no limits.</p>
+          <div class="pkg-price">By Consultation</div>
+          <ul class="pkg-features">
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Fully Coded, No Templates</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Unlimited Products</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Third-Party Integrations</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Payment Gateway Setup</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Google Account Setup</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Courier Integration Setup</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Built Around Your Brand, Exclusively</li>
+          </ul>
+          <a class="btn btn-primary" href="https://wa.me/27615829391?text=Hi%20there,%20I%20am%20interested%20in%20the%20Fully%20Custom%20Online%20Store%20package,%20can%20you%20please%20assist." target="_blank" rel="noopener">Book Consultation</a>
+        </div>
+        <div class="pkg-stack-nav">
+          <div class="pkg-dots"><button class="pkg-dot" aria-label="Shopify Store Setup"></button><button class="pkg-dot" aria-label="Shopify Full Service"></button><button class="pkg-dot" aria-label="Fully Custom Store"></button></div>
+          <button class="pkg-nav-btn pkg-prev" aria-label="Previous package"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <button class="pkg-nav-btn pkg-next" aria-label="Next package"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
     </div>
     <div style="text-align:center;margin-top:44px;"><a class="btn btn-primary" href="https://wa.me/27615829391?text=I%20am%20interested%20in%20Online%20Stores" target="_blank" rel="noopener">Book a Free Consultation →</a></div>
   </div>
@@ -170,6 +223,6 @@
 </footer>
 
 <script src="script.js?v=4"></script>
-<script src="effects.js?v=11"></script>
+<script src="effects.js?v=13"></script>
 </body>
 </html>
