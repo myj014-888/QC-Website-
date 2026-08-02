@@ -283,7 +283,7 @@ section.blk { padding: 90px 0; position: relative; }
 .carousel-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x proximity; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding: 4px 4px 14px; margin: 0 -4px; scrollbar-width: none; cursor: grab; }
 .carousel-track::-webkit-scrollbar { display: none; }
 .carousel-track.dragging { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; user-select: none; }
-.carousel-track > * { scroll-snap-align: start; flex: 0 0 auto; width: min(300px, 78vw); }
+.carousel-track > * { scroll-snap-align: start; flex: 0 0 auto; width: min(300px, 72vw); }
 .carousel-fade-l, .carousel-fade-r { position: absolute; top: 0; bottom: 14px; width: 56px; z-index: 2; pointer-events: none; transition: opacity .25s; opacity: 0; }
 .carousel-fade-l { left: 0; background: linear-gradient(90deg, var(--bg) 0%, transparent 100%); }
 .carousel-fade-r { right: 0; background: linear-gradient(270deg, var(--bg) 0%, transparent 100%); }
@@ -385,6 +385,10 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 54px 0 40px; mar
   nav { padding: 8px 10px 8px 16px; }
   section.blk { padding: 64px 0; }
   .subrow { grid-template-columns: 1fr; }
+  .hero { padding: 130px 22px 60px; min-height: auto; }
+  .page-hero { padding: 130px 22px 56px; }
+  .stats { margin-top: 48px; gap: clamp(24px, 8vw, 48px); }
+  .head { margin-bottom: 40px; }
 }
 @media (max-width: 900px) and (min-width: 641px) {
   .g3, .g4 { grid-template-columns: repeat(2, 1fr); }
@@ -392,4 +396,8 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 54px 0 40px; mar
 }
 @media (max-width: 640px) {
   .g3, .g4, .g2, .about-grid, .methods { grid-template-columns: 1fr; }
+  .about-grid { gap: 36px; }
+  .hero { padding: 118px 20px 50px; }
+  .page-hero { padding: 116px 20px 44px; }
+  .stats { margin-top: 38px; }
 }

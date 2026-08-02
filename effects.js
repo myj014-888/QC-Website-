@@ -654,10 +654,37 @@
     updateEdges();
 
     var isDown = false, startX = 0, startScroll = 0, moved = false;
+    var momentumId = null, lastX = 0, lastT = 0, velocity = 0;
+
+    function stopMomentum() {
+      if (momentumId) { cancelAnimationFrame(momentumId); momentumId = null; }
+    }
+
+    function snapToNearest() {
+      var step = stepSize();
+      if (!step) return;
+      var target = Math.round(track.scrollLeft / step) * step;
+      var max = track.scrollWidth - track.clientWidth;
+      target = Math.max(0, Math.min(max, target));
+      track.scrollTo({ left: target, behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+
+    function runMomentum() {
+      velocity *= 0.94;
+      if (Math.abs(velocity) < 0.05) { momentumId = null; snapToNearest(); return; }
+      var max = track.scrollWidth - track.clientWidth;
+      var next = track.scrollLeft - velocity;
+      if (next < 0 || next > max) { velocity = 0; momentumId = null; snapToNearest(); return; }
+      track.scrollLeft = next;
+      momentumId = requestAnimationFrame(runMomentum);
+    }
+
     track.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'touch') return;
+      stopMomentum();
       isDown = true; moved = false;
       startX = e.clientX; startScroll = track.scrollLeft;
+      lastX = e.clientX; lastT = performance.now(); velocity = 0;
       track.classList.add('dragging');
       try { track.setPointerCapture(e.pointerId); } catch (err) {}
     });
@@ -666,12 +693,21 @@
       var dx = e.clientX - startX;
       if (Math.abs(dx) > 10) moved = true;
       track.scrollLeft = startScroll - dx;
+      var now = performance.now();
+      var dt = now - lastT;
+      if (dt > 0) { velocity = (e.clientX - lastX) / dt * 16.7; }
+      lastX = e.clientX; lastT = now;
     });
     function endDrag(e) {
       if (!isDown) return;
       isDown = false;
       track.classList.remove('dragging');
       try { track.releasePointerCapture(e.pointerId); } catch (err) {}
+      if (!reduceMotion && Math.abs(velocity) > 0.4) {
+        momentumId = requestAnimationFrame(runMomentum);
+      } else {
+        snapToNearest();
+      }
     }
     track.addEventListener('pointerup', endDrag);
     track.addEventListener('pointerleave', endDrag);
