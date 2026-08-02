@@ -366,6 +366,172 @@
   });
 })();
 
+// Scroll-linked effects engine — parallax, 3D tilt, clip-path reveal, grayscale-to-color, scale-in, split-lines, blur-stagger.
+// Reveal-type effects run a full appear -> hold -> disappear lifecycle as elements pass through the
+// viewport (not a one-time reveal that then sticks forever), eased with smoothstep for a natural feel.
+// Fully skipped under prefers-reduced-motion: elements simply render in their natural static state.
+(function () {
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return;
+
+  var items = [];
+
+  function smoothstep(t) { return t * t * (3 - 2 * t); }
+
+  // Linear 0->1 as an element enters from the bottom of the viewport. Used only by parallax,
+  // which should keep drifting continuously rather than settle once centered.
+  function enterProgress(el) {
+    var r = el.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var p = (vh - r.top) / (vh + r.height);
+    return Math.max(0, Math.min(1, p));
+  }
+
+  // Symmetric 0 -> 1 -> 0: rises as the element enters, peaks near viewport center, falls again
+  // as it exits through the top. Gives every reveal effect a genuine appear/disappear lifecycle.
+  function lifecycleProgress(el) {
+    var r = el.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var elCenter = r.top + r.height / 2;
+    var viewCenter = vh / 2;
+    var span = (vh + r.height) / 2 || 1;
+    var dist = Math.abs(elCenter - viewCenter);
+    // Elements pinned near the very top of the page (hero kickers, headlines) can never reach
+    // true viewport-center at scrollY 0 — there's no room to scroll further up to correct for
+    // it. Without a plateau, those elements get permanently stuck mid-reveal (e.g. a kicker
+    // tag rendering with a lingering blur no matter what). A generous "fully revealed" zone
+    // around center fixes that while still letting elements further down the page reveal,
+    // hold, and disappear normally as they pass through.
+    var plateau = span * 0.5;
+    var p;
+    if (dist <= plateau) {
+      p = 1;
+    } else {
+      p = 1 - Math.min(1, (dist - plateau) / (span - plateau));
+    }
+    return smoothstep(Math.max(0, Math.min(1, p)));
+  }
+
+  function applyOne(item) {
+    var el = item.el, fx = item.fx;
+    if (fx === 'parallax') {
+      var lp2 = enterProgress(el);
+      el.style.transform = 'translateY(' + ((lp2 - 0.5) * -44) + 'px)';
+      return;
+    }
+    var eased = lifecycleProgress(el);
+    switch (fx) {
+      case 'tilt3d':
+        var rot = (1 - eased) * 32;
+        el.style.transform = 'perspective(900px) rotateX(' + rot + 'deg)';
+        el.style.opacity = String(0.2 + eased * 0.8);
+        break;
+      case 'rise3d':
+        // Rises up from below while tilting out of a 3D lean into flat — a deeper, more
+        // dramatic version of tilt3d that reads as "climbing into place" rather than settling.
+        var riseY = (1 - eased) * 70;
+        var riseRot = (1 - eased) * 26;
+        el.style.transform = 'perspective(1000px) translateY(' + riseY + 'px) rotateX(' + riseRot + 'deg)';
+        el.style.opacity = String(0.12 + eased * 0.88);
+        break;
+      case 'scale-in':
+        var s = 0.86 + eased * 0.14;
+        el.style.transform = 'scale(' + s + ')';
+        el.style.opacity = String(0.15 + eased * 0.85);
+        break;
+      case 'clip-reveal':
+        el.style.clipPath = 'inset(0 0 ' + ((1 - eased) * 100) + '% 0)';
+        break;
+      case 'mono-color':
+        var sat = eased;
+        el.style.filter = 'grayscale(' + ((1 - sat) * 100) + '%) contrast(1.05) brightness(' + (0.6 + sat * 0.18) + ')';
+        break;
+      case 'split-lines':
+        var lines = el.querySelectorAll(':scope > span.grad');
+        lines.forEach(function (line, i) {
+          var delay = i * 0.16;
+          var lp = Math.max(0, Math.min(1, (eased - delay) / (1 - delay || 1)));
+          line.style.transform = 'translateY(' + ((1 - lp) * 60) + '%)';
+          line.style.opacity = String(lp);
+        });
+        break;
+      case 'blur-stagger':
+        el.style.filter = 'blur(' + ((1 - eased) * 10) + 'px)';
+        el.style.opacity = String(eased);
+        break;
+    }
+  }
+
+  var needsUpdate = true;
+  function loop() {
+    if (needsUpdate) {
+      items.forEach(applyOne);
+      needsUpdate = false;
+    }
+    requestAnimationFrame(loop);
+  }
+  function flag() { needsUpdate = true; }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-scroll-fx]').forEach(function (el) {
+      items.push({ el: el, fx: el.dataset.scrollFx });
+      if (el.dataset.scrollFx === 'split-lines') {
+        el.querySelectorAll(':scope > span.grad').forEach(function (line) {
+          line.style.display = 'inline-block';
+          line.style.willChange = 'transform, opacity';
+        });
+      } else {
+        el.style.willChange = 'transform, opacity, filter, clip-path';
+      }
+    });
+    window.addEventListener('scroll', flag, { passive: true });
+    window.addEventListener('resize', flag);
+    requestAnimationFrame(loop);
+  });
+})();
+
+// Zoom-parallax gallery — sticky-pinned collage where each image scales up as you scroll through.
+(function () {
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function progress(wrap) {
+    var r = wrap.getBoundingClientRect();
+    var total = r.height - window.innerHeight;
+    if (total <= 0) return 1;
+    return Math.max(0, Math.min(1, -r.top / total));
+  }
+
+  function applyWrap(w) {
+    var p = progress(w.wrap);
+    w.imgs.forEach(function (im) {
+      var target = parseFloat(im.dataset.zoomScale) || 2;
+      im.style.transform = 'scale(' + (1 + (target - 1) * p) + ')';
+    });
+  }
+
+  var wraps = [];
+  var needsUpdate = true;
+  function flag() { needsUpdate = true; }
+  function loop() {
+    if (needsUpdate) { wraps.forEach(applyWrap); needsUpdate = false; }
+    requestAnimationFrame(loop);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.zoom-pin-wrap').forEach(function (wrap) {
+      wraps.push({ wrap: wrap, imgs: wrap.querySelectorAll('[data-zoom-scale]') });
+    });
+    if (!wraps.length) return;
+    if (reduceMotion) {
+      wraps.forEach(function (w) { w.imgs.forEach(function (im) { im.style.transform = 'scale(1)'; }); });
+      return;
+    }
+    window.addEventListener('scroll', flag, { passive: true });
+    window.addEventListener('resize', flag);
+    requestAnimationFrame(loop);
+  });
+})();
+
 // Spotify-style horizontal card carousel — swipe on touch, drag on desktop, arrow buttons, edge fades.
 (function () {
   function initCarousel(wrap) {
@@ -415,7 +581,7 @@
     track.addEventListener('pointermove', function (e) {
       if (!isDown) return;
       var dx = e.clientX - startX;
-      if (Math.abs(dx) > 3) moved = true;
+      if (Math.abs(dx) > 10) moved = true;
       track.scrollLeft = startScroll - dx;
     });
     function endDrag(e) {

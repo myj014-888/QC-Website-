@@ -4,18 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact — QuadCorp</title>
+<meta name="description" content="Get in touch with QuadCorp. Book a free consultation via WhatsApp, phone, or email — we typically respond within a few hours.">
+<link rel="canonical" href="https://quadcorp.co.za/contact.html">
+<meta name="theme-color" content="#171310">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QuadCorp">
+<meta property="og:title" content="Contact — QuadCorp">
+<meta property="og:description" content="Book a free consultation with QuadCorp via WhatsApp, phone, or email — we typically respond within a few hours.">
+<meta property="og:url" content="https://quadcorp.co.za/contact.html">
+<meta property="og:image" content="https://images.unsplash.com/photo-1611679782010-5ac7ff596d9a?auto=format&amp;fit=crop&amp;w=1200&amp;q=75">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact — QuadCorp">
+<meta name="twitter:description" content="Book a free consultation with QuadCorp via WhatsApp, phone, or email.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1611679782010-5ac7ff596d9a?auto=format&amp;fit=crop&amp;w=1200&amp;q=75">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=8">
+<link rel="stylesheet" href="styles.css?v=14">
 <style>
   .form-field { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; text-align:left; }
   .form-field label { font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--faint); font-weight:600; }
   .form-field input, .form-field textarea { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:13px 16px; color:var(--text); font-family:inherit; font-size:14px; outline:none; transition:border-color .2s; }
-  .form-field input:focus, .form-field textarea:focus { border-color:rgba(228,197,128,0.5); }
+  .form-field input:focus, .form-field textarea:focus { border-color:rgba(214,216,220,0.5); }
   .chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
   .chip { padding:8px 16px; border-radius:12px; font-size:13px; font-weight:500; cursor:pointer; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); color:var(--muted); transition:all .2s; }
-  .chip.on { background:rgba(228,197,128,0.18); border-color:rgba(228,197,128,0.5); color:var(--gold-bright); }
+  .chip.on { background:rgba(214,216,220,0.18); border-color:rgba(214,216,220,0.5); color:var(--gold-bright); }
   .form-card { max-width:560px; margin:0 auto; text-align:left; }
 </style>
 </head>
@@ -25,7 +40,7 @@
   <nav>
     <a href="index.html" class="brand">
       <svg viewBox="0 0 240 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="55%" stop-color="#F0E3C8"/><stop offset="100%" stop-color="#C9A25E"/></linearGradient></defs>
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="55%" stop-color="#E3E5E9"/><stop offset="100%" stop-color="#9CA0A8"/></linearGradient></defs>
         <circle cx="95" cy="62" r="38" stroke="url(#g)" stroke-width="9" fill="none"/>
         <path d="M 172 34 A 38 38 0 1 0 172 90" stroke="url(#g)" stroke-width="9" stroke-linecap="round" fill="none"/>
         <line x1="42" y1="118" x2="126" y2="34" stroke="url(#g)" stroke-width="9" stroke-linecap="round"/>
@@ -46,10 +61,10 @@
 </header>
 
 <section class="page-hero">
-  <canvas class="velaris-bg" data-colors="#171310,#332818,#E4C580" data-shape="edge" data-rotation="-20"></canvas>
+  <canvas class="velaris-bg" data-colors="#171310,#332818,#D6D8DC" data-shape="edge" data-rotation="-20"></canvas>
   <div class="hero-scrim"></div>
-  <div class="inner">
-    <span class="tag">Contact Us</span>
+  <div class="inner" data-scroll-fx="scale-in">
+    <span class="tag" data-scroll-fx="blur-stagger">Contact Us</span>
     <h1><span class="grad">Let's build something great.</span></h1>
     <p>Book a free consultation, ask a question, or just say hello. We typically respond within a few hours.</p>
   </div>
@@ -59,11 +74,11 @@
   <div class="wrap about-grid" style="align-items:center;">
     <div data-reveal>
       <span class="tag">Real People, Real Replies</span>
-      <h2 style="font-size:clamp(26px,4vw,36px);margin:18px 0 14px;"><span class="grad">A team that</span><br><span class="grad">actually answers.</span></h2>
+      <h2 style="font-size:clamp(26px,4vw,36px);margin:18px 0 14px;" data-scroll-fx="split-lines"><span class="grad">A team that</span><br><span class="grad">actually answers.</span></h2>
       <p style="color:var(--muted);">No ticket queue, no chatbot loop. Message us and a real person on the team replies, usually within a few hours.</p>
     </div>
     <div class="tinted-photo wide" data-reveal>
-      <img src="https://images.unsplash.com/photo-1611679782010-5ac7ff596d9a?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" alt="A team member responding to a message on a laptop" loading="lazy" width="1200" height="750">
+      <img data-scroll-fx="mono-color" src="https://images.unsplash.com/photo-1611679782010-5ac7ff596d9a?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" alt="A team member responding to a message on a laptop" loading="lazy" width="1200" height="750">
     </div>
   </div>
 </section>
@@ -77,7 +92,7 @@
       <a class="card method" href="https://instagram.com/quadcorp_digital" target="_blank" rel="noopener"><div class="ml">Instagram</div><div class="mv gold">@quadcorp_digital</div></a>
     </div>
 
-    <div class="card form-card" data-reveal>
+    <div class="card form-card" data-reveal data-scroll-fx="rise3d">
       <h3 style="margin-bottom:22px;">Book an Appointment</h3>
       <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--faint);font-weight:600;display:block;margin-bottom:10px;">I am interested in</label>
       <div class="chips" id="chips">
@@ -131,7 +146,7 @@
       <div class="foot-brand">
         <div class="fb">
           <svg viewBox="0 0 240 130" width="40" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs><linearGradient id="gf" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="55%" stop-color="#F0E3C8"/><stop offset="100%" stop-color="#C9A25E"/></linearGradient></defs>
+            <defs><linearGradient id="gf" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="55%" stop-color="#E3E5E9"/><stop offset="100%" stop-color="#9CA0A8"/></linearGradient></defs>
             <circle cx="95" cy="62" r="38" stroke="url(#gf)" stroke-width="9" fill="none"/>
             <path d="M 172 34 A 38 38 0 1 0 172 90" stroke="url(#gf)" stroke-width="9" stroke-linecap="round" fill="none"/>
             <line x1="42" y1="118" x2="126" y2="34" stroke="url(#gf)" stroke-width="9" stroke-linecap="round"/>
@@ -150,7 +165,7 @@
 </footer>
 
 <script src="script.js?v=4"></script>
-<script src="effects.js?v=5"></script>
+<script src="effects.js?v=11"></script>
 <script>
   document.querySelectorAll('#chips .chip').forEach(function (c) {
     c.addEventListener('click', function () { c.classList.toggle('on'); });
