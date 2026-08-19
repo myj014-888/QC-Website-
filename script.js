@@ -1,3 +1,13 @@
+// Normalizes location.pathname to match the clean-URL nav hrefs (/, /crm, /about, ...)
+// regardless of whether the page was reached as /crm, /crm.html, or /crm/ — covers the
+// live Vercel cleanUrls path, direct .html requests, and local static-server testing alike.
+function qcNormalizedPath() {
+  var p = location.pathname.replace(/index\.html$/, '').replace(/\.html$/, '');
+  if (!p) p = '/';
+  if (p.length > 1 && p.charAt(p.length - 1) === '/') p = p.slice(0, -1);
+  return p;
+}
+
 // Hero keyword rotation (home page)
 (function () {
   var kws = document.querySelectorAll('#kws span');
@@ -12,7 +22,7 @@
 
 // Active nav link based on current file
 (function () {
-  var page = location.pathname.split('/').pop() || 'index.html';
+  var page = qcNormalizedPath();
   document.querySelectorAll('nav a.lnk').forEach(function (a) {
     if (a.getAttribute('href') === page) a.classList.add('active');
   });
@@ -26,7 +36,7 @@
   var book = nav.querySelector('.book');
   if (!links) return;
 
-  var page = location.pathname.split('/').pop() || 'index.html';
+  var page = qcNormalizedPath();
 
   // Toggle button (hamburger / close)
   var toggle = document.createElement('button');
