@@ -1,0 +1,9 @@
+{
+  "name": "qc-website",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@vercel/blob": "^2.8.0",
+    "xlsx": "^0.18.5"
+  }
+}

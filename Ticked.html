@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ticked — Automated WhatsApp Booking Assistant</title>
+<meta name="description" content="Ticked answers your WhatsApp, books straight into your Google Calendar, and follows up with clients automatically, even after hours. Join the waitlist.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="ticked-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Re-skin the shared silver/gold accent to Ticked's own green identity —
+     everything else (fonts, spacing, card/button shapes, scroll-reveal) stays
+     inherited from the main site's design system. */
+  :root {
+    --gold: #22C55E;
+    --gold-bright: #4ADE80;
+    --gold-deep: #16A34A;
+  }
+
+  /* HOW IT WORKS — numbered step cards */
+  .tk-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .tk-step-num { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; background: linear-gradient(135deg, var(--gold-bright), var(--gold-deep)); color: #07170d; font-family: 'Space Grotesk'; font-weight: 700; font-size: 15px; margin-bottom: 18px; }
+  .tk-steps .card h3 { font-size: 19px; margin-bottom: 8px; }
+  .tk-steps .card p { font-size: 14px; color: var(--muted); }
+
+  /* PAIN POINTS checklist */
+  .tk-checklist { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .tk-checklist li { display: flex; align-items: flex-start; gap: 12px; font-size: 14.5px; color: rgba(236,231,221,0.82); }
+  .tk-check-ico { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(34,197,94,0.14); border: 1px solid rgba(34,197,94,0.4); margin-top: 1px; }
+  .tk-check-ico svg { width: 12px; height: 12px; stroke: var(--gold-bright); fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* FOUNDING MEMBER banner */
+  .tk-band { background: linear-gradient(135deg, #14532d 0%, #166534 55%, #15803d 100%); position: relative; overflow: hidden; }
+  .tk-band::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(255,255,255,0.12), transparent 65%); pointer-events: none; }
+  .tk-band .wrap { position: relative; z-index: 1; text-align: center; max-width: 620px; }
+  .tk-band h2 { color: #fff; font-size: clamp(28px, 4.5vw, 42px); margin-bottom: 14px; }
+  .tk-band p { color: rgba(255,255,255,0.82); margin-bottom: 28px; font-size: 15px; line-height: 1.65; }
+  .tk-band .btn { background: #fff; color: #14532d; box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+  .tk-band .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0,0,0,0.32); }
+
+  /* WAITLIST FORM */
+  .tk-form-card { max-width: 520px; margin: 0 auto; text-align: left; }
+  .tk-field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+  .tk-field label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); font-weight: 700; }
+  .tk-field input, .tk-field select {
+    background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+    padding: 14px 16px; color: var(--text); font-family: inherit; font-size: 14.5px; outline: none;
+    transition: border-color .2s, background .2s; width: 100%;
+  }
+  .tk-field input::placeholder { color: var(--faint); }
+  .tk-field input:focus, .tk-field select:focus { border-color: rgba(34,197,94,0.55); background: rgba(34,197,94,0.05); }
+  .tk-submit { width: 100%; justify-content: center; margin-top: 4px; border: none; cursor: pointer; font-size: 15px; }
+  .tk-submit:disabled { opacity: 0.6; cursor: default; transform: none !important; }
+  .tk-form-note { text-align: center; font-size: 12px; color: var(--faint); margin-top: 14px; }
+  .tk-form-msg { display: none; text-align: center; padding: 14px 18px; border-radius: 12px; font-size: 14px; margin-top: 16px; line-height: 1.55; }
+  .tk-form-msg.show { display: block; }
+  .tk-form-msg.ok { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.35); color: var(--gold-bright); }
+  .tk-form-msg.err { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.35); color: #fca5a5; }
+  .tk-success-check { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-bright), var(--gold-deep)); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+  .tk-success-check svg { width: 20px; height: 20px; stroke: #07170d; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+  @media (max-width: 900px) {
+    .tk-steps { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#top" class="brand">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4ADE80"/><stop offset="100%" stop-color="#16A34A"/></linearGradient></defs>
+        <rect width="24" height="24" rx="7" fill="url(#tg)"/>
+        <path d="M6.5 12.5l3.3 3.3L17.5 8.2" stroke="#07170d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>TICKED</span>
+    </a>
+    <div class="nav-links">
+      <a class="lnk" href="#how-it-works">How it works</a>
+    </div>
+    <a class="book" href="#waitlist">Join the waitlist</a>
+  </nav>
+</header>
+
+<section class="hero" id="top" style="min-height:92vh;">
+  <canvas class="velaris-bg" data-scroll-fx="parallax" data-colors="#0b1f12,#14532d,#4ADE80" data-shape="edge" data-rotation="-45"></canvas>
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <span class="tag" data-scroll-fx="blur-stagger">Automated Booking Assistant for WhatsApp</span>
+    <h1 style="margin-top:22px;"><span class="grad">Never miss a</span><br><span class="grad">booking again.</span></h1>
+    <p class="sub">Ticked answers your WhatsApp, books straight into your Google Calendar, and follows up with clients, automatically, even after hours.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#waitlist">Join the waitlist →</a>
+      <span style="align-self:center;font-size:13px;color:var(--faint);">Free to join. Limited founding spots.</span>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="how-it-works">
+  <div class="wrap">
+    <div class="head" data-reveal data-scroll-fx="clip-reveal">
+      <span class="tag">How It Works</span>
+      <h2><span class="grad">Three steps.</span><br><span class="grad">No app for your clients.</span></h2>
+    </div>
+    <div class="tk-steps" data-reveal-stagger>
+      <div class="card">
+        <span class="tk-step-num">1</span>
+        <h3>A client messages you</h3>
+        <p>They ask for an appointment on WhatsApp, any time, day or night. No new app, no forms.</p>
+      </div>
+      <div class="card">
+        <span class="tk-step-num">2</span>
+        <h3>Ticked books it</h3>
+        <p>Ticked automatically checks your Google Calendar for a real open slot and confirms it with the client instantly.</p>
+      </div>
+      <div class="card">
+        <span class="tk-step-num">3</span>
+        <h3>You stay in sync</h3>
+        <p>It lands on your calendar automatically. Reminders and follow-ups go out without you lifting a finger.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" style="background:rgba(255,255,255,0.015);border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);">
+  <div class="wrap about-grid" style="align-items:center;">
+    <div data-reveal data-scroll-fx="slide-left">
+      <span class="tag">Sound Familiar?</span>
+      <h2 style="font-size:clamp(28px,4.5vw,40px);margin:18px 0 16px;"><span class="grad">Still losing bookings</span><br><span class="grad">after hours?</span></h2>
+      <p style="color:var(--muted);">If your business runs its bookings through WhatsApp, this is probably familiar.</p>
+    </div>
+    <ul class="tk-checklist" data-reveal-stagger data-scroll-fx="slide-right">
+      <li><span class="tk-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Messages that come in after closing time and only get answered the next morning</li>
+      <li><span class="tk-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Double-bookings from juggling WhatsApp and a calendar by hand</li>
+      <li><span class="tk-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>No-shows because nobody sent a reminder</li>
+      <li><span class="tk-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Hours spent typing the same replies to the same questions</li>
+    </ul>
+  </div>
+</section>
+
+<section class="blk tk-band" data-reveal data-scroll-fx="scale-in">
+  <div class="wrap">
+    <h2>Founding member pricing</h2>
+    <p>We're onboarding a small pilot group before this opens up to everyone. Founding members lock in early-access pricing and help shape what we build next.</p>
+    <a class="btn" href="#waitlist">Claim your spot</a>
+  </div>
+</section>
+
+<section class="blk" id="waitlist">
+  <div class="wrap">
+    <div class="head" data-reveal data-scroll-fx="rise3d">
+      <span class="tag">Join The Waitlist</span>
+      <h2><span class="grad">Tell us about</span><br><span class="grad">your business.</span></h2>
+      <p>We'll reach out personally.</p>
+    </div>
+
+    <div class="card tk-form-card" data-reveal data-scroll-fx="scale-in">
+      <form id="tk-waitlist-form" novalidate>
+        <div class="tk-field">
+          <label for="tk-name">Full name</label>
+          <input id="tk-name" name="full_name" type="text" placeholder="Your name" autocomplete="name" required>
+        </div>
+        <div class="tk-field">
+          <label for="tk-business">Business name</label>
+          <input id="tk-business" name="business_name" type="text" placeholder="e.g. Smilesmiths" autocomplete="organization" required>
+        </div>
+        <div class="tk-field">
+          <label for="tk-type">What kind of business?</label>
+          <input id="tk-type" name="business_type" type="text" placeholder="e.g. salon, clinic, tutor, repair shop" required>
+        </div>
+        <div class="tk-field">
+          <label for="tk-whatsapp">WhatsApp number</label>
+          <input id="tk-whatsapp" name="whatsapp_number" type="tel" placeholder="+27 ..." autocomplete="tel" required>
+        </div>
+        <button class="btn btn-primary tk-submit" type="submit">Join the waitlist →</button>
+        <p class="tk-form-note">No spam. We'll only reach out about your founding spot.</p>
+        <div class="tk-form-msg" id="tk-form-msg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bot"><span>&copy; 2026 Ticked. All Rights Reserved.</span><span>Built by QuadCorp</span></div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="effects.js"></script>
+<script>
+(function () {
+  var form = document.getElementById('tk-waitlist-form');
+  var msg = document.getElementById('tk-form-msg');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = form.querySelector('.tk-submit');
+    var data = {
+      full_name: form.full_name.value.trim(),
+      business_name: form.business_name.value.trim(),
+      business_type: form.business_type.value.trim(),
+      whatsapp_number: form.whatsapp_number.value.trim()
+    };
+    if (!data.full_name || !data.business_name || !data.business_type || !data.whatsapp_number) {
+      msg.className = 'tk-form-msg show err';
+      msg.textContent = 'Please fill in every field so we can reach out.';
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'Joining…';
+    msg.className = 'tk-form-msg';
+    fetch('/api/waitlist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function (res) {
+      if (!res.ok) throw new Error('bad response');
+      return res.json().catch(function () { return {}; });
+    }).then(function () {
+      form.reset();
+      form.querySelectorAll('.tk-field, .tk-submit, .tk-form-note').forEach(function (el) { el.style.display = 'none'; });
+      msg.className = 'tk-form-msg show ok';
+      msg.innerHTML = '<div class="tk-success-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><strong>You\'re on the list!</strong><br>We\'ll reach out personally about your founding spot.';
+    }).catch(function () {
+      btn.disabled = false;
+      btn.textContent = 'Join the waitlist →';
+      msg.className = 'tk-form-msg show err';
+      msg.textContent = 'Something went wrong on our end. Please try again in a moment.';
+    });
+  });
+})();
+</script>
+</body>
+</html>
