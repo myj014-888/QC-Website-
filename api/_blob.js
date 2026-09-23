@@ -11,7 +11,10 @@ const XLSX_CONTENT_TYPE = 'application/vnd.openxmlformats-officedocument.spreads
 
 async function readWorkbookBuffer() {
   try {
-    const result = await get(BLOB_PATH, { access: 'private' });
+    // useCache:false is essential here — two submissions close together would
+    // otherwise both read a cached pre-write snapshot and the second write
+    // would silently clobber the first submission's row.
+    const result = await get(BLOB_PATH, { access: 'private', useCache: false });
     if (!result || result.statusCode !== 200) return null;
     return Buffer.from(await new Response(result.stream).arrayBuffer());
   } catch (e) {
