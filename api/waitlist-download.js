@@ -1,16 +1,13 @@
 const { readRows, readWorkbookBuffer, writeRows, HEADERS, XLSX_CONTENT_TYPE } = require('./_blob');
+const { requireAuth } = require('./_auth');
 
-// Gated by a long random secret (ADMIN_SECRET) rather than public/no-auth,
-// since the underlying data is real client contact info.
-// GET    /api/waitlist-download?key=<ADMIN_SECRET>              -> download latest .xlsx
-// DELETE /api/waitlist-download?key=<ADMIN_SECRET>&row=2,3      -> remove specific spreadsheet row number(s), 2-indexed (row 1 is headers)
-// DELETE /api/waitlist-download?key=<ADMIN_SECRET>&reset=1      -> wipe every submission, back to headers only
+// Gated by HTTP Basic Auth (browser password prompt) since the underlying
+// data is real client contact info.
+// GET    /api/waitlist-download                 -> download latest .xlsx
+// DELETE /api/waitlist-download?row=2,3          -> remove specific spreadsheet row number(s), 2-indexed (row 1 is headers)
+// DELETE /api/waitlist-download?reset=1          -> wipe every submission, back to headers only
 module.exports = async (req, res) => {
-  const key = req.query && req.query.key;
-  if (!process.env.ADMIN_SECRET || key !== process.env.ADMIN_SECRET) {
-    res.status(403).json({ error: 'Forbidden' });
-    return;
-  }
+  if (!requireAuth(req, res)) return;
 
   if (req.method === 'DELETE') {
     try {

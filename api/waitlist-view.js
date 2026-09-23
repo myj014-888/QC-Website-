@@ -1,4 +1,5 @@
 const { readRows } = require('./_blob');
+const { requireAuth } = require('./_auth');
 
 function esc(s) {
   return String(s).replace(/[&<>"']/g, function (c) {
@@ -17,15 +18,11 @@ function waLink(number) {
   return 'https://wa.me/' + digits;
 }
 
-// GET /api/waitlist-view?key=<ADMIN_SECRET> — a live, human-readable table of
-// every submission, newest first, with a WhatsApp link per row and a delete
-// action. Reload the page to see new signups; no file download needed.
+// GET /api/waitlist-view — a live, human-readable table of every submission,
+// newest first, with a WhatsApp link per row and a delete action. Reload the
+// page to see new signups; no file download needed.
 module.exports = async (req, res) => {
-  const key = req.query && req.query.key;
-  if (!process.env.ADMIN_SECRET || key !== process.env.ADMIN_SECRET) {
-    res.status(403).send('Forbidden');
-    return;
-  }
+  if (!requireAuth(req, res)) return;
   if (req.method !== 'GET') {
     res.status(405).send('Method not allowed');
     return;
@@ -34,7 +31,6 @@ module.exports = async (req, res) => {
   try {
     const rows = await readRows();
     const dataRows = rows.slice(1); // drop header row
-    const keyEnc = encodeURIComponent(key);
 
     const tableRows = dataRows
       .map(function (r, i) { return { r: r, rowNum: i + 2 }; }) // 1-indexed sheet row, matches waitlist-download's row= param
@@ -82,7 +78,7 @@ module.exports = async (req, res) => {
       '<h1>Ticked Waitlist</h1>' +
       '<p class="sub">Reload this page any time to see new submissions — nothing to download.</p>' +
       '<div class="bar"><span class="count">' + dataRows.length + ' signup' + (dataRows.length === 1 ? '' : 's') + '</span>' +
-      '<a class="dl" href="/api/waitlist-download?key=' + keyEnc + '">Download .xlsx</a>' +
+      '<a class="dl" href="/api/waitlist-download">Download .xlsx</a>' +
       '<button class="refresh" onclick="location.reload()">Refresh</button></div>' +
       '<div class="tablewrap">' +
       (dataRows.length
@@ -93,7 +89,7 @@ module.exports = async (req, res) => {
       'document.querySelectorAll(".del").forEach(function(btn){' +
       'btn.addEventListener("click", function(){' +
       'if(!confirm("Delete this submission?")) return;' +
-      'fetch("/api/waitlist-download?key=' + keyEnc + '&row=" + btn.dataset.row, {method:"DELETE"}).then(function(r){' +
+      'fetch("/api/waitlist-download?row=" + btn.dataset.row, {method:"DELETE"}).then(function(r){' +
       'if(r.ok) location.reload(); else alert("Delete failed");' +
       '});' +
       '});' +
