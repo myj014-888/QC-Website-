@@ -23,7 +23,18 @@
   .marquee-track span { font-family: 'Space Grotesk'; font-size: 13px; letter-spacing: 0.14em; font-weight: 700; color: var(--gold-deep); white-space: nowrap; display: flex; align-items: center; gap: 40px; }
   .marquee-track span::after { content: '•'; color: var(--faint); margin-left: 40px; }
   @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes marquee-scroll-rev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
   @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; overflow-x: auto; } }
+
+  /* SOLUTIONS PILL MARQUEE */
+  .solutions-marquee { display: flex; flex-direction: column; gap: 16px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .solutions-row { display: flex; gap: 14px; width: max-content; }
+  .solutions-row.left { animation: marquee-scroll 34s linear infinite; }
+  .solutions-row.right { animation: marquee-scroll-rev 34s linear infinite; }
+  .sol-pill { display: inline-flex; align-items: center; gap: 10px; padding: 15px 26px; border-radius: 999px; border: 1px solid var(--line); background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); white-space: nowrap; font-size: 15px; font-weight: 600; transition: border-color .2s, background .2s; }
+  a.sol-pill:hover { border-color: rgba(214,216,220,0.4); background: rgba(214,216,220,0.08); }
+  .sol-pill svg { width: 16px; height: 16px; fill: var(--gold); flex-shrink: 0; }
+  @media (prefers-reduced-motion: reduce) { .solutions-row { animation: none; } .solutions-marquee { overflow-x: auto; } }
 
   /* NUMBERED MINI-STEPS (holding-you-back section) */
   .mini-steps { display: flex; flex-direction: column; gap: 22px; margin-top: 28px; }
@@ -273,17 +284,31 @@
       <h2><span class="grad">Solutions we can</span><br><span class="grad">help you implement.</span></h2>
       <p>Following your assessment, we can assist with:</p>
     </div>
-    <div class="grid g4" data-reveal-stagger>
-      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">Professional Websites</p></div>
-      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">E-commerce Solutions</p></div>
-      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">SEO Optimisation</p></div>
-      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">Google Business Profile</p></div>
-      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">Business Dashboards</p></div>
-      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">CRM Systems</p></div>
-      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">AI Solutions</p></div>
-      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">Business Automation</p></div>
-      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">Client Portals</p></div>
-      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">Custom Business Software</p></div>
+    <div class="solutions-marquee" data-reveal>
+      <div class="solutions-row left">
+        <a class="sol-pill" href="/websites"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Professional Websites</a>
+        <a class="sol-pill" href="/stores"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>E-commerce Solutions</a>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>SEO Optimisation</span>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Google Business Profile Optimisation</span>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Business Dashboards</span>
+        <a class="sol-pill" href="/websites"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Professional Websites</a>
+        <a class="sol-pill" href="/stores"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>E-commerce Solutions</a>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>SEO Optimisation</span>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Google Business Profile Optimisation</span>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Business Dashboards</span>
+      </div>
+      <div class="solutions-row right">
+        <a class="sol-pill" href="/crm"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>CRM Systems</a>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>AI Solutions</span>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Business Automation</span>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Client Portals</span>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Custom Business Software</span>
+        <a class="sol-pill" href="/crm"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>CRM Systems</a>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>AI Solutions</span>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Business Automation</span>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Client Portals</span>
+        <span class="sol-pill"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Custom Business Software</span>
+      </div>
     </div>
   </div>
 </section>
