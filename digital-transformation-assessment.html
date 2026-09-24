@@ -43,12 +43,19 @@
   .mini-step h4 { font-size: 16px; margin-bottom: 4px; }
   .mini-step p { font-size: 13.5px; color: var(--muted); }
 
+  /* OPEN PROCESS STEPS (no card box, matches source's plain circle+line layout) */
+  .roadmap-open .step { background: none; border: none; padding: 10px 6px 0; box-shadow: none; overflow: visible; transition: none; }
+  .roadmap-open .step:hover { transform: none; box-shadow: none; }
+  .roadmap-open .step::before { display: none; }
+  .roadmap-open .step h3 { font-size: 17px; margin-bottom: 8px; }
+  .roadmap-open .step p { font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+
   /* HEALTH SCORE GAUGE */
-  .gauge-wrap { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; justify-content: center; }
-  .gauge svg { width: 190px; height: 190px; }
+  .gauge-wrap { display: flex; align-items: center; gap: 56px; justify-content: center; }
+  .gauge svg { width: 210px; height: 210px; }
   .gauge-num { font-family: 'Space Grotesk'; font-size: 15px; font-weight: 700; }
   .gauge-center { text-anchor: middle; }
-  .stat-bars { display: flex; flex-direction: column; gap: 16px; min-width: 240px; }
+  .stat-bars { display: flex; flex-direction: column; justify-content: center; gap: 20px; flex: 1; max-width: 380px; }
   .stat-bar-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; color: var(--muted); }
   .stat-bar-row b { color: var(--text); font-weight: 700; }
   .stat-bar-track { height: 8px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
@@ -78,6 +85,15 @@
   .cs-card .cs-kick { position: relative; z-index: 1; font-family: 'Space Grotesk'; font-size: 11px; letter-spacing: 0.12em; color: var(--gold); font-weight: 700; margin-bottom: 8px; }
   .cs-card h3 { position: relative; z-index: 1; font-size: 22px; margin-bottom: 6px; }
   .cs-card p { position: relative; z-index: 1; font-size: 13.5px; color: rgba(236,231,221,0.8); }
+
+  /* FINAL CTA PANEL */
+  .cta-panel { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 26px; padding: 56px 40px; }
+
+  @media (max-width: 700px) {
+    .gauge-wrap { flex-direction: column; gap: 32px; }
+    .stat-bars { max-width: 100%; width: 100%; }
+    .cta-panel { padding: 40px 24px; }
+  }
 </style>
 </head>
 <body>
@@ -239,12 +255,12 @@
       <h2><span class="grad">From unknowns to</span><br><span class="grad">a clear roadmap.</span></h2>
       <p>Four steps. No obligation. Full clarity at every stage.</p>
     </div>
-    <div class="grid g4 roadmap" data-reveal-stagger>
+    <div class="grid g4 roadmap roadmap-open" data-reveal-stagger>
       <div class="road-line" aria-hidden="true"></div>
-      <div class="card step"><span class="step-num">01</span><h3>Complete the Assessment</h3><p>Fill in the Digital Transformation Assessment. It takes 15–20 minutes.</p></div>
-      <div class="card step"><span class="step-num">02</span><h3>We Analyse and Report</h3><p>We go through your website and systems, then send your Digital Transformation Report.</p></div>
-      <div class="card step"><span class="step-num">03</span><h3>Strategy Session</h3><p>Book a strategy session to discuss your results and priorities.</p></div>
-      <div class="card step"><span class="step-num">04</span><h3>Implement &amp; Grow</h3><p>Implement the highest-impact improvements, with us or with anyone you choose.</p></div>
+      <div class="step"><span class="step-num">01</span><h3>Complete the Assessment</h3><p>Fill in the Digital Transformation Assessment. It takes 15–20 minutes.</p></div>
+      <div class="step"><span class="step-num">02</span><h3>We Analyse and Report</h3><p>We go through your website and systems, then send your Digital Transformation Report.</p></div>
+      <div class="step"><span class="step-num">03</span><h3>Strategy Session</h3><p>Book a strategy session to discuss your results and priorities.</p></div>
+      <div class="step"><span class="step-num">04</span><h3>Implement &amp; Grow</h3><p>Implement the highest-impact improvements, with us or with anyone you choose.</p></div>
     </div>
   </div>
 </section>
@@ -366,10 +382,12 @@
 
 <section class="blk tk-band" style="background:linear-gradient(135deg, #1c1712 0%, #14110c 55%, #0c0a07 100%);border-top:1px solid rgba(214,216,220,0.12);">
   <div class="wrap" style="text-align:center;max-width:680px;">
-    <span class="tag" data-reveal>Ready To Transform Your Business?</span>
-    <h2 data-reveal style="margin:18px 0 16px;"><span class="grad">Stop guessing.</span><br><span class="grad">Start knowing.</span></h2>
-    <p data-reveal style="color:var(--muted);margin-bottom:28px;">Stop guessing where your business can improve. Start making informed decisions backed by a comprehensive Digital Transformation Assessment.</p>
-    <a class="btn btn-primary" data-reveal href="https://wa.me/27615829391?text=Hi%20QuadCorp!%20I%27d%20like%20to%20start%20my%20Digital%20Transformation%20Assessment." target="_blank" rel="noopener">Book Your Assessment Today →</a>
+    <div class="cta-panel" data-reveal data-scroll-fx="scale-in">
+      <span class="tag">Ready To Transform Your Business?</span>
+      <h2 style="margin:18px 0 16px;"><span class="grad">Stop guessing.</span><br><span class="grad">Start knowing.</span></h2>
+      <p style="color:var(--muted);margin-bottom:28px;">Stop guessing where your business can improve. Start making informed decisions backed by a comprehensive Digital Transformation Assessment.</p>
+      <a class="btn btn-primary" href="https://wa.me/27615829391?text=Hi%20QuadCorp!%20I%27d%20like%20to%20start%20my%20Digital%20Transformation%20Assessment." target="_blank" rel="noopener">Book Your Assessment Today →</a>
+    </div>
   </div>
 </section>
 
