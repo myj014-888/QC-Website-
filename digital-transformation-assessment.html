@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Transformation Assessment — QuadCorp</title>
+<meta name="description" content="Find out exactly what's slowing your business down online, ranked by what it's costing you, in a free Digital Transformation Assessment from QuadCorp.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* KICKER LINK ROW */
+  .kicker-row { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; font-family: 'Space Grotesk'; font-size: 13px; letter-spacing: 0.1em; font-weight: 600; }
+  .kicker-row a { color: var(--faint); transition: color .2s; }
+  .kicker-row a:hover { color: var(--gold); }
+
+  /* MARQUEE TICKER */
+  .marquee { overflow: hidden; border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 18px 0; background: rgba(255,255,255,0.015); }
+  .marquee-track { display: flex; gap: 40px; width: max-content; animation: marquee-scroll 30s linear infinite; }
+  .marquee-track span { font-family: 'Space Grotesk'; font-size: 13px; letter-spacing: 0.14em; font-weight: 700; color: var(--gold-deep); white-space: nowrap; display: flex; align-items: center; gap: 40px; }
+  .marquee-track span::after { content: '•'; color: var(--faint); margin-left: 40px; }
+  @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; overflow-x: auto; } }
+
+  /* NUMBERED MINI-STEPS (holding-you-back section) */
+  .mini-steps { display: flex; flex-direction: column; gap: 22px; margin-top: 28px; }
+  .mini-step { display: flex; gap: 16px; }
+  .mini-step .num { font-family: 'Space Grotesk'; font-weight: 700; font-size: 20px; background: linear-gradient(135deg, var(--gold-bright), var(--gold-deep)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; flex-shrink: 0; width: 34px; }
+  .mini-step h4 { font-size: 16px; margin-bottom: 4px; }
+  .mini-step p { font-size: 13.5px; color: var(--muted); }
+
+  /* HEALTH SCORE GAUGE */
+  .gauge-wrap { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; justify-content: center; }
+  .gauge svg { width: 190px; height: 190px; }
+  .gauge-num { font-family: 'Space Grotesk'; font-size: 15px; font-weight: 700; }
+  .gauge-center { text-anchor: middle; }
+  .stat-bars { display: flex; flex-direction: column; gap: 16px; min-width: 240px; }
+  .stat-bar-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; color: var(--muted); }
+  .stat-bar-row b { color: var(--text); font-weight: 700; }
+  .stat-bar-track { height: 8px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+  .stat-bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--gold-deep), var(--gold-bright)); }
+
+  /* REPORT MOCKUP CARD */
+  .report-mock { background: linear-gradient(160deg, #1c1712, #0f0d0a); border: 1px solid rgba(214,216,220,0.18); border-radius: 18px; padding: 26px; box-shadow: 0 30px 70px rgba(0,0,0,0.5); }
+  .report-mock .rm-kick { font-family: 'Space Grotesk'; font-size: 11px; letter-spacing: 0.14em; color: var(--gold-deep); border: 1px solid var(--line); display: inline-block; padding: 4px 12px; border-radius: 999px; margin-bottom: 22px; }
+  .report-mock .rm-bar { height: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--gold-deep), var(--gold-bright)); width: 74%; margin-bottom: 22px; }
+  .report-mock .rm-score-row { display: flex; justify-content: space-between; align-items: baseline; }
+  .report-mock .rm-label { font-size: 13px; color: var(--muted); }
+  .report-mock .rm-score { font-family: 'Space Grotesk'; font-size: 34px; font-weight: 700; }
+  .report-mock .rm-score small { font-size: 16px; color: var(--faint); }
+
+  /* WHY-QUADCORP ICON LIST */
+  .reason-list { display: flex; flex-direction: column; }
+  .reason-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .reason-item:last-child { border-bottom: none; }
+  .reason-ico { width: 38px; height: 38px; border-radius: 10px; background: rgba(214,216,220,0.08); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .reason-ico svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.8; }
+  .reason-item h4 { font-size: 15px; margin-bottom: 3px; }
+  .reason-item p { font-size: 13px; color: var(--muted); }
+
+  /* CASE STUDY CARDS */
+  .cs-card { position: relative; overflow: hidden; border-radius: 18px; height: 380px; display: flex; flex-direction: column; justify-content: flex-end; padding: 26px; background-size: cover; background-position: center; }
+  .cs-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10,9,7,0.92) 10%, rgba(10,9,7,0.35) 55%, rgba(10,9,7,0.15) 100%); }
+  .cs-card .cs-kick { position: relative; z-index: 1; font-family: 'Space Grotesk'; font-size: 11px; letter-spacing: 0.12em; color: var(--gold); font-weight: 700; margin-bottom: 8px; }
+  .cs-card h3 { position: relative; z-index: 1; font-size: 22px; margin-bottom: 6px; }
+  .cs-card p { position: relative; z-index: 1; font-size: 13.5px; color: rgba(236,231,221,0.8); }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="/" class="brand">
+      <svg viewBox="0 0 240 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="55%" stop-color="#E3E5E9"/><stop offset="100%" stop-color="#9CA0A8"/></linearGradient></defs>
+        <circle cx="95" cy="62" r="38" stroke="url(#g)" stroke-width="9" fill="none"/>
+        <path d="M 172 34 A 38 38 0 1 0 172 90" stroke="url(#g)" stroke-width="9" stroke-linecap="round" fill="none"/>
+        <line x1="42" y1="118" x2="126" y2="34" stroke="url(#g)" stroke-width="9" stroke-linecap="round"/>
+        <line x1="72" y1="120" x2="98" y2="94" stroke="url(#g)" stroke-width="9" stroke-linecap="round"/>
+      </svg>
+      <span>QUADCORP</span>
+    </a>
+    <div class="nav-links">
+      <a class="lnk" href="#assess">What We Assess</a>
+      <a class="lnk" href="#process">Our Process</a>
+      <a class="lnk" href="#case-studies">Case Studies</a>
+      <a class="lnk" href="#faq">FAQ</a>
+    </div>
+    <a class="book" href="https://wa.me/27615829391?text=Hi%20QuadCorp!%20I%27d%20like%20to%20start%20my%20Digital%20Transformation%20Assessment." target="_blank" rel="noopener">Get Your Assessment</a>
+  </nav>
+</header>
+
+<section class="hero" style="min-height:96vh;">
+  <canvas class="velaris-bg" data-scroll-fx="parallax" data-colors="#171310,#3a2c18,#D6D8DC" data-shape="edge" data-rotation="-45"></canvas>
+  <div class="hero-scrim"></div>
+  <div class="hero-inner" style="max-width:980px;">
+    <div class="kicker-row" data-reveal>
+      <a href="#assess">/ DIGITAL ASSESSMENT</a>
+      <a href="#process">/ GROWTH ROADMAP</a>
+      <a href="#receive">/ IMPLEMENTATION</a>
+    </div>
+    <span class="tag" data-scroll-fx="blur-stagger">Digital Transformation Assessment</span>
+    <h1 style="margin-top:22px;"><span class="grad">Clear. Precise.</span><br><span class="grad">Automated.</span></h1>
+    <p class="sub">We find what's slowing your business down online, and we give you a plan to fix it, ranked by what it's actually costing you.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://wa.me/27615829391?text=Hi%20QuadCorp!%20I%27d%20like%20to%20start%20my%20Digital%20Transformation%20Assessment." target="_blank" rel="noopener">Get Your Assessment →</a>
+      <span style="align-self:center;font-size:13px;color:var(--faint);">See where you stand, free, no obligation.</span>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Website Performance</span><span>SEO</span><span>Google Business Profile</span><span>Customer Journey</span><span>Lead Generation</span><span>Business Systems</span><span>Automation &amp; AI</span><span>Analytics &amp; Reporting</span>
+    <span>Website Performance</span><span>SEO</span><span>Google Business Profile</span><span>Customer Journey</span><span>Lead Generation</span><span>Business Systems</span><span>Automation &amp; AI</span><span>Analytics &amp; Reporting</span>
+  </div>
+</div>
+
+<section class="blk">
+  <div class="wrap about-grid" style="align-items:center;">
+    <div data-reveal data-scroll-fx="slide-left">
+      <span class="tag">No Guesswork</span>
+      <h2 style="font-size:clamp(28px,4.5vw,42px);margin:18px 0 16px;"><span class="grad">See what's</span><br><span class="grad">holding you back.</span></h2>
+      <p style="color:var(--muted);">We look at your website and the systems running behind it. You get a prioritised roadmap your team can act on, ranked by what each problem costs you.</p>
+      <div class="cta" style="margin-top:24px;">
+        <a class="btn btn-primary" href="https://wa.me/27615829391?text=Hi%20QuadCorp!%20I%27d%20like%20to%20start%20my%20Digital%20Transformation%20Assessment." target="_blank" rel="noopener">Get Your Assessment</a>
+        <a class="btn btn-ghost" href="https://wa.me/27615829391?text=Hi%20QuadCorp!%20I%27d%20like%20to%20book%20a%20call%20about%20the%20Digital%20Transformation%20Assessment." target="_blank" rel="noopener">Book a call</a>
+      </div>
+    </div>
+    <div class="mini-steps" data-reveal-stagger data-scroll-fx="slide-right">
+      <div class="mini-step"><span class="num">01</span><div><h4>Complete the assessment</h4><p>A few questions about your business. It takes 15–20 minutes, and every answer sharpens your report.</p></div></div>
+      <div class="mini-step"><span class="num">02</span><div><h4>Get your report</h4><p>We analyse how your business shows up online and how it runs behind the scenes, then send your Digital Transformation Report.</p></div></div>
+      <div class="mini-step"><span class="num">03</span><div><h4>Implement and grow</h4><p>Act on the highest-impact fixes, with us or with providers you already trust.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" style="background:rgba(255,255,255,0.015);border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);">
+  <div class="wrap">
+    <div class="head" data-reveal data-scroll-fx="clip-reveal">
+      <span class="tag">The Problem</span>
+      <h2><span class="grad">Your business doesn't</span><br><span class="grad">need more guesswork.</span></h2>
+      <p>Most businesses know something isn't working. They just don't know where. Whether you're losing customers because of an outdated website, poor Google visibility, manual processes, or disconnected systems, we'll show you exactly what needs attention.</p>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="assess">
+  <div class="wrap">
+    <div class="head" data-reveal data-scroll-fx="scale-in">
+      <span class="tag">Full-Spectrum Audit</span>
+      <h2><span class="grad">What we assess.</span></h2>
+      <p>We score eight areas of your digital presence and turn each one into something you can act on.</p>
+    </div>
+    <div class="grid g4" data-reveal-stagger>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><span class="kick">01</span><h3>Website Performance</h3><p>Is your website generating enquiries or simply existing online?</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span class="kick">02</span><h3>Search Engine Optimisation</h3><p>Can potential customers actually find your business on Google?</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><span class="kick">03</span><h3>Google Business Profile</h3><p>Are you appearing in local search results and Google Maps?</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><span class="kick">04</span><h3>Customer Journey</h3><p>How many steps stand between a customer finding you and paying you?</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h16l-6 9v6l-4 2v-8L4 4z"/></svg></div><span class="kick">05</span><h3>Lead Generation</h3><p>Where do your enquiries come from, and where are you losing potential customers?</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.5 7.5 15.5 16.5"/><circle cx="18" cy="6" r="3"/><path d="M15.5 7.5 8.5 16.5"/><circle cx="6" cy="18" r="3"/></svg></div><span class="kick">06</span><h3>Business Systems</h3><p>Do your systems talk to each other, or does someone re-type the same data?</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></div><span class="kick">07</span><h3>Automation &amp; AI</h3><p>Discover repetitive tasks that can be automated to save time and improve productivity.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><line x1="4" y1="20" x2="4" y2="12"/><line x1="12" y1="20" x2="12" y2="6"/><line x1="20" y1="20" x2="20" y2="14"/></svg></div><span class="kick">08</span><h3>Analytics &amp; Reporting</h3><p>Are you making decisions based on data or assumptions?</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" style="background:rgba(255,255,255,0.015);border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);">
+  <div class="wrap">
+    <div class="head" data-reveal data-scroll-fx="rise3d">
+      <span class="tag">Your Digital Health Score</span>
+      <h2><span class="grad">One number that tells</span><br><span class="grad">you where you really stand.</span></h2>
+      <p>Every assessment includes a comprehensive Digital Health Score, a breakdown of how your business performs in every area of your online presence, where you're strong, where you're weak, and which fixes are worth the most to you.</p>
+    </div>
+    <div class="gauge-wrap" data-reveal data-scroll-fx="scale-in">
+      <div class="gauge">
+        <svg viewBox="0 0 200 200">
+          <defs><linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4F5F7"/><stop offset="100%" stop-color="#9CA0A8"/></linearGradient></defs>
+          <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="16"/>
+          <circle cx="100" cy="100" r="82" fill="none" stroke="url(#gaugeGrad)" stroke-width="16" stroke-linecap="round" stroke-dasharray="515.2" stroke-dashoffset="134" transform="rotate(-90 100 100)"/>
+          <text x="100" y="94" class="gauge-center" fill="#ece7dd" font-family="Space Grotesk" font-weight="700" font-size="46">74</text>
+          <text x="100" y="120" class="gauge-center" fill="rgba(236,231,221,0.55)" font-family="Manrope" font-size="12" letter-spacing="1">/ 100 HEALTH SCORE</text>
+        </svg>
+      </div>
+      <div class="stat-bars">
+        <div><div class="stat-bar-row"><span>Website &amp; UX</span><b>72%</b></div><div class="stat-bar-track"><div class="stat-bar-fill" style="width:72%;"></div></div></div>
+        <div><div class="stat-bar-row"><span>Search Visibility</span><b>48%</b></div><div class="stat-bar-track"><div class="stat-bar-fill" style="width:48%;"></div></div></div>
+        <div><div class="stat-bar-row"><span>Lead Generation</span><b>61%</b></div><div class="stat-bar-track"><div class="stat-bar-fill" style="width:61%;"></div></div></div>
+        <div><div class="stat-bar-row"><span>Systems &amp; Automation</span><b>84%</b></div><div class="stat-bar-track"><div class="stat-bar-fill" style="width:84%;"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="receive">
+  <div class="wrap about-grid" style="align-items:center;">
+    <div class="report-mock" data-reveal data-scroll-fx="slide-left">
+      <span class="rm-kick">QC / TRANSFORMATION REPORT</span>
+      <div class="rm-bar"></div>
+      <div class="rm-score-row"><span class="rm-label">Digital Health Score</span><span class="rm-score">74<small> / 100</small></span></div>
+    </div>
+    <div data-reveal data-scroll-fx="slide-right">
+      <span class="tag">The Deliverable</span>
+      <h2 style="font-size:clamp(28px,4.5vw,40px);margin:18px 0 16px;"><span class="grad">What you'll receive.</span></h2>
+      <p style="color:var(--muted);margin-bottom:20px;">A professionally prepared Digital Transformation Report, including:</p>
+      <ul style="list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;">
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);"><svg viewBox="0 0 24 24" width="18" height="18" style="stroke:var(--gold);fill:none;stroke-width:2.2;flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>Executive Summary</li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);"><svg viewBox="0 0 24 24" width="18" height="18" style="stroke:var(--gold);fill:none;stroke-width:2.2;flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>Digital Health Score</li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);"><svg viewBox="0 0 24 24" width="18" height="18" style="stroke:var(--gold);fill:none;stroke-width:2.2;flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>Website Audit</li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);"><svg viewBox="0 0 24 24" width="18" height="18" style="stroke:var(--gold);fill:none;stroke-width:2.2;flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>SEO Audit</li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);"><svg viewBox="0 0 24 24" width="18" height="18" style="stroke:var(--gold);fill:none;stroke-width:2.2;flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>Google Business Profile Review</li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);"><svg viewBox="0 0 24 24" width="18" height="18" style="stroke:var(--gold);fill:none;stroke-width:2.2;flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>Lead Generation Assessment</li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);"><svg viewBox="0 0 24 24" width="18" height="18" style="stroke:var(--gold);fill:none;stroke-width:2.2;flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>Automation Opportunities</li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);"><svg viewBox="0 0 24 24" width="18" height="18" style="stroke:var(--gold);fill:none;stroke-width:2.2;flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>Personalised Recommendations</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="blk blk-glow" id="process">
+  <div class="ambient-glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <span class="tag">Our Process</span>
+      <h2><span class="grad">From unknowns to</span><br><span class="grad">a clear roadmap.</span></h2>
+      <p>Four steps. No obligation. Full clarity at every stage.</p>
+    </div>
+    <div class="grid g4 roadmap" data-reveal-stagger>
+      <div class="road-line" aria-hidden="true"></div>
+      <div class="card step"><span class="step-num">01</span><h3>Complete the Assessment</h3><p>Fill in the Digital Transformation Assessment. It takes 15–20 minutes.</p></div>
+      <div class="card step"><span class="step-num">02</span><h3>We Analyse and Report</h3><p>We go through your website and systems, then send your Digital Transformation Report.</p></div>
+      <div class="card step"><span class="step-num">03</span><h3>Strategy Session</h3><p>Book a strategy session to discuss your results and priorities.</p></div>
+      <div class="card step"><span class="step-num">04</span><h3>Implement &amp; Grow</h3><p>Implement the highest-impact improvements, with us or with anyone you choose.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="case-studies" style="background:rgba(255,255,255,0.015);border-top:1px solid rgba(255,255,255,0.05);">
+  <div class="wrap">
+    <div class="head" data-reveal data-scroll-fx="clip-reveal">
+      <span class="tag">Proof Of Work</span>
+      <h2><span class="grad">Case studies.</span></h2>
+      <p>Every industry loses customers a different way. Here's where we typically find the fix.</p>
+    </div>
+    <div class="carousel-wrap">
+      <div class="carousel-fade-l" aria-hidden="true"></div>
+      <div class="carousel-fade-r" aria-hidden="true"></div>
+      <div class="carousel-track" data-reveal-stagger>
+        <div class="cs-card" style="background-image:url('https://images.unsplash.com/photo-1449247666642-264389f5f5b1?auto=format&fit=crop&w=800&q=75');"><span class="cs-kick">CASE STUDY 01 · E-COMMERCE &amp; RETAIL</span><h3>Online stores that actually close the sale</h3><p>Turning browsers into buyers with a checkout that keeps selling.</p></div>
+        <div class="cs-card" style="background-image:url('https://images.unsplash.com/photo-1581166397057-235af2b3c6dd?auto=format&fit=crop&w=800&q=75');"><span class="cs-kick">CASE STUDY 02 · TRADES &amp; HOME SERVICES</span><h3>Never lose another enquiry to a busy inbox</h3><p>Automated booking so no job request slips through the cracks.</p></div>
+        <div class="cs-card" style="background-image:url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=75');"><span class="cs-kick">CASE STUDY 03 · PROFESSIONAL SERVICES</span><h3>Stop depending entirely on referrals</h3><p>A digital presence that brings in clients on its own.</p></div>
+        <div class="cs-card" style="background-image:url('https://images.unsplash.com/photo-1649751361457-01d3a696c7e6?auto=format&fit=crop&w=800&q=75');"><span class="cs-kick">CASE STUDY 04 · HEALTH &amp; WELLNESS</span><h3>Fewer no-shows, fuller diary</h3><p>Automated reminders and rebooking that protect your schedule.</p></div>
+        <div class="cs-card" style="background-image:url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=75');"><span class="cs-kick">CASE STUDY 05 · HOSPITALITY &amp; TOURISM</span><h3>Win the direct booking, keep the margin</h3><p>Less commission paid to platforms, more booked direct.</p></div>
+        <div class="cs-card" style="background-image:url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=75');"><span class="cs-kick">CASE STUDY 06 · PROPERTY &amp; REAL ESTATE</span><h3>Follow up before the lead goes cold</h3><p>Instant response systems so no enquiry waits overnight.</p></div>
+        <div class="cs-card" style="background-image:url('https://images.unsplash.com/photo-1616432043562-3671ea2e5242?auto=format&fit=crop&w=800&q=75');"><span class="cs-kick">CASE STUDY 07 · LOGISTICS &amp; TRANSPORT</span><h3>Take the admin out of every job</h3><p>Systems that talk to each other, so nobody re-types data.</p></div>
+        <div class="cs-card" style="background-image:url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=75');"><span class="cs-kick">CASE STUDY 08 · EDUCATION &amp; TRAINING</span><h3>Fill the intake without chasing</h3><p>A lead pipeline that fills seats before term starts.</p></div>
+      </div>
+      <div class="carousel-arrows">
+        <button class="carousel-arrow carousel-prev" aria-label="Previous case study"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="carousel-arrow carousel-next" aria-label="Next case study"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blk">
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <span class="tag">After The Assessment</span>
+      <h2><span class="grad">Solutions we can</span><br><span class="grad">help you implement.</span></h2>
+      <p>Following your assessment, we can assist with:</p>
+    </div>
+    <div class="grid g4" data-reveal-stagger>
+      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">Professional Websites</p></div>
+      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">E-commerce Solutions</p></div>
+      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">SEO Optimisation</p></div>
+      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">Google Business Profile</p></div>
+      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">Business Dashboards</p></div>
+      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">CRM Systems</p></div>
+      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">AI Solutions</p></div>
+      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">Business Automation</p></div>
+      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">Client Portals</p></div>
+      <div class="card" style="text-align:center;padding:20px;"><p style="font-size:14px;font-weight:700;">Custom Business Software</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" style="background:rgba(255,255,255,0.015);border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);">
+  <div class="wrap about-grid" style="align-items:center;">
+    <div data-reveal data-scroll-fx="slide-left">
+      <span class="tag">Why QuadCorp</span>
+      <h2 style="font-size:clamp(28px,4.5vw,40px);margin:18px 0 16px;"><span class="grad">Every finding comes</span><br><span class="grad">with the reason behind it.</span></h2>
+      <p style="color:var(--muted);">Businesses choose QuadCorp because our assessment explains its own findings. You always know why something is costing you money before you spend anything fixing it.</p>
+      <div class="note">Our goal is simple: help your business become more efficient, more visible, and more profitable through practical digital transformation.</div>
+    </div>
+    <div class="reason-list" data-reveal-stagger data-scroll-fx="slide-right">
+      <div class="reason-item"><div class="reason-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div><h4>Why you're losing customers</h4><p>Pinpoint the exact drop-off moments in your funnel.</p></div></div>
+      <div class="reason-item"><div class="reason-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div><h4>Why you aren't ranking on Google</h4><p>See your site the way Google actually sees it.</p></div></div>
+      <div class="reason-item"><div class="reason-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><h4>Where manual processes cost time</h4><p>Quantify the hours lost to repetitive, disconnected work.</p></div></div>
+      <div class="reason-item"><div class="reason-ico"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><div><h4>How to improve customer experience</h4><p>Remove the friction between someone finding you and paying you.</p></div></div>
+      <div class="reason-item"><div class="reason-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg></div><div><h4>Which investments matter most</h4><p>Know which digital investments will have the greatest impact.</p></div></div>
+      <div class="reason-item"><div class="reason-ico"><svg viewBox="0 0 24 24"><line x1="4" y1="20" x2="4" y2="12"/><line x1="12" y1="20" x2="12" y2="6"/><line x1="20" y1="20" x2="20" y2="14"/></svg></div><div><h4>How to build for long-term growth</h4><p>Systems and structure that scale with your business.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="faq">
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <span class="tag">FAQ</span>
+      <h2><span class="grad">Questions, answered.</span></h2>
+      <p>Everything you need to know about the Digital Transformation Assessment before you begin.</p>
+    </div>
+    <div class="faq" data-reveal>
+      <details>
+        <summary>How long does the assessment take?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+        <div class="a-wrap"><div class="a-inner"><p>Approximately 15–20 minutes.</p></div></div>
+      </details>
+      <details>
+        <summary>When will I receive my report?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+        <div class="a-wrap"><div class="a-inner"><p>Within the agreed turnaround time after completing the assessment.</p></div></div>
+      </details>
+      <details>
+        <summary>Do I have to work with QuadCorp afterwards?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+        <div class="a-wrap"><div class="a-inner"><p>No. The report is yours to keep. You are free to implement the recommendations yourself or work with any provider.</p></div></div>
+      </details>
+      <details>
+        <summary>Is this suitable for small businesses?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+        <div class="a-wrap"><div class="a-inner"><p>Yes. The assessment is designed for businesses of all sizes that want to improve their digital presence and operational efficiency.</p></div></div>
+      </details>
+      <details>
+        <summary>Do you provide implementation services?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+        <div class="a-wrap"><div class="a-inner"><p>Yes. We can assist with websites, SEO, dashboards, automation, CRM systems, and custom software.</p></div></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="blk tk-band" style="background:linear-gradient(135deg, #1c1712 0%, #14110c 55%, #0c0a07 100%);border-top:1px solid rgba(214,216,220,0.12);">
+  <div class="wrap" style="text-align:center;max-width:680px;">
+    <span class="tag" data-reveal>Ready To Transform Your Business?</span>
+    <h2 data-reveal style="margin:18px 0 16px;"><span class="grad">Stop guessing.</span><br><span class="grad">Start knowing.</span></h2>
+    <p data-reveal style="color:var(--muted);margin-bottom:28px;">Stop guessing where your business can improve. Start making informed decisions backed by a comprehensive Digital Transformation Assessment.</p>
+    <a class="btn btn-primary" data-reveal href="https://wa.me/27615829391?text=Hi%20QuadCorp!%20I%27d%20like%20to%20start%20my%20Digital%20Transformation%20Assessment." target="_blank" rel="noopener">Book Your Assessment Today →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="fb">
+          <svg viewBox="0 0 240 130" width="40" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="gf" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="55%" stop-color="#E3E5E9"/><stop offset="100%" stop-color="#9CA0A8"/></linearGradient></defs>
+            <circle cx="95" cy="62" r="38" stroke="url(#gf)" stroke-width="9" fill="none"/>
+            <path d="M 172 34 A 38 38 0 1 0 172 90" stroke="url(#gf)" stroke-width="9" stroke-linecap="round" fill="none"/>
+            <line x1="42" y1="118" x2="126" y2="34" stroke="url(#gf)" stroke-width="9" stroke-linecap="round"/>
+            <line x1="72" y1="120" x2="98" y2="94" stroke="url(#gf)" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+          <span style="font-family:'Space Grotesk';letter-spacing:0.28em;font-size:15px;">QUADCORP</span>
+        </div>
+        <p>Practical digital transformation. We help businesses become more efficient, more visible, and more profitable.</p>
+      </div>
+      <div class="foot-col"><h5>Explore</h5><a href="/">Home</a><a href="/crm">CRM Software</a><a href="/websites">Websites &amp; Funnels</a><a href="/stores">Online Stores</a></div>
+      <div class="foot-col"><h5>Assessment</h5><a href="#assess">What We Assess</a><a href="#process">Our Process</a><a href="#case-studies">Case Studies</a><a href="#faq">FAQ</a></div>
+    </div>
+    <div class="foot-bot"><span>&copy; 2026 QuadCorp. All Rights Reserved.</span><span>Efficient · Visible · Profitable</span></div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="effects.js"></script>
+</body>
+</html>
