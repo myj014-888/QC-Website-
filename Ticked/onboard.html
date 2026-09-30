@@ -205,10 +205,14 @@
   input:disabled { opacity: 0.4; }
   .hint { font-size: 12.5px; color: var(--text-soft); margin-top: 6px; line-height: 1.5; }
 
+  .field-error { font-size: 12.5px; color: var(--danger); margin-top: 6px; line-height: 1.5; display: none; }
+  .field.invalid input { border-color: var(--danger); }
+  .field.invalid .field-error { display: block; }
+
   /* Services */
   .service-row {
     display: grid;
-    grid-template-columns: 1fr 96px 110px 34px;
+    grid-template-columns: 1fr 168px 148px 34px;
     gap: 10px;
     align-items: center;
     margin-bottom: 10px;
@@ -238,7 +242,7 @@
   .add-link:hover { color: var(--green-hover); }
   .col-heads {
     display: grid;
-    grid-template-columns: 1fr 96px 110px 34px;
+    grid-template-columns: 1fr 168px 148px 34px;
     gap: 10px;
     font-size: 11.5px;
     font-weight: 700;
@@ -419,19 +423,20 @@
           </div>
           <div class="field">
             <label for="contact_phone">Your phone number</label>
-            <input type="tel" id="contact_phone" autocomplete="tel" placeholder="27821234567">
+            <input type="tel" id="contact_phone" autocomplete="tel" placeholder="082 123 4567">
           </div>
         </div>
         <div class="field">
           <label for="owner_whatsapp_number">WhatsApp number for booking alerts</label>
-          <input type="tel" id="owner_whatsapp_number" placeholder="27821234567">
-          <div class="hint">Where you'll get a message whenever a booking is made, changed or cancelled. Use the country code with no leading 0, for example 27821234567.</div>
+          <input type="tel" id="owner_whatsapp_number" placeholder="082 123 4567">
+          <div class="hint">Where you'll get a message whenever a booking is made, changed or cancelled. Type it any way you like, for example 082 123 4567.</div>
+          <div class="field-error" id="owner-error">That number doesn't look right. Please enter a full mobile number, for example 082 123 4567.</div>
         </div>
       </section>
 
       <section class="card">
         <p class="eyebrow">Services you offer</p>
-        <div class="col-heads"><span>Service</span><span>Minutes</span><span>Price (R)</span><span></span></div>
+        <div class="col-heads"><span>Service</span><span>Time in minutes</span><span>Price in Rands</span><span></span></div>
         <div id="services-list"></div>
         <button type="button" class="add-link" id="add-service">+ Add another service</button>
       </section>
@@ -506,8 +511,8 @@
     row.className = 'service-row';
     row.innerHTML = `
       <input type="text" class="svc-name" placeholder="e.g. Haircut" aria-label="Service name">
-      <input type="number" class="svc-duration" placeholder="30" min="1" aria-label="Duration in minutes">
-      <input type="number" class="svc-price" placeholder="150" min="0" aria-label="Price in rand">
+      <input type="number" class="svc-duration" placeholder="Time in minutes" min="1" aria-label="Time in minutes">
+      <input type="number" class="svc-price" placeholder="Price in Rands" min="0" aria-label="Price in Rands">
       <button type="button" class="remove-btn" title="Remove service" aria-label="Remove service">&times;</button>
     `;
     row.querySelector('.remove-btn').addEventListener('click', () => {
@@ -581,6 +586,36 @@
     banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
+  // Turns what someone typed into WhatsApp's digits-only, country-code-first
+  // format (082 123 4567 and +27 82 123 4567 both become 27821234567).
+  function normalizePhone(raw) {
+    if (!raw) return null;
+    let d = String(raw).replace(/\D/g, '');
+    if (d.startsWith('00')) d = d.slice(2);
+    if (d.startsWith('270')) d = '27' + d.slice(3);
+    else if (d.startsWith('0')) d = '27' + d.slice(1);
+    else if (d.length === 9 && /^[6-8]/.test(d)) d = '27' + d;
+    if (d.startsWith('27')) return d.length === 11 ? d : null;
+    return d.length >= 10 && d.length <= 15 ? d : null;
+  }
+
+  function checkOwnerNumber() {
+    const input = document.getElementById('owner_whatsapp_number');
+    const field = input.closest('.field');
+    const value = input.value.trim();
+    if (!value) { field.classList.remove('invalid'); return true; }
+    const n = normalizePhone(value);
+    if (!n) { field.classList.add('invalid'); return false; }
+    field.classList.remove('invalid');
+    input.value = n;
+    return true;
+  }
+  document.getElementById('owner_whatsapp_number').addEventListener('blur', checkOwnerNumber);
+  document.getElementById('contact_phone').addEventListener('blur', (e) => {
+    const n = normalizePhone(e.target.value.trim());
+    if (n) e.target.value = n;
+  });
+
   addServiceRow();
   buildHoursRows();
   document.getElementById('add-service').addEventListener('click', addServiceRow);
@@ -594,6 +629,12 @@
       showError('Please add your business name and email before submitting.');
       return;
     }
+    if (!checkOwnerNumber()) {
+      showError('Please check the WhatsApp number for booking alerts. It should be a full mobile number, for example 082 123 4567.');
+      document.getElementById('owner_whatsapp_number').focus();
+      return;
+    }
+    payload.owner_whatsapp_number = document.getElementById('owner_whatsapp_number').value.trim();
     if (payload.services.length === 0) {
       showError('Please add at least one service so Ticked knows what clients can book.');
       return;
