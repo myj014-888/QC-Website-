@@ -43,6 +43,7 @@ module.exports = async (req, res) => {
           '<td>' + esc(r[2]) + '</td>' +
           '<td>' + esc(r[3]) + '</td>' +
           '<td><a class="wa" href="' + esc(waLink(r[4])) + '" target="_blank" rel="noopener">' + esc(r[4]) + '</a></td>' +
+          '<td>' + (r[5] ? esc(r[5]) : '<span class="muted">Before this was asked</span>') + '</td>' +
           '<td><button class="del" data-row="' + item.rowNum + '">Delete</button></td>' +
           '</tr>';
       })
@@ -73,6 +74,7 @@ module.exports = async (req, res) => {
       'button.del{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.35);color:#fca5a5;padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer;}' +
       'button.del:hover{background:rgba(239,68,68,0.2);}' +
       '.empty{padding:40px;text-align:center;color:var(--muted);}' +
+      '.muted{color:var(--muted);}' +
       '</style></head><body>' +
       '<div class="wrap">' +
       '<h1>Ticked Waitlist</h1>' +
@@ -82,7 +84,7 @@ module.exports = async (req, res) => {
       '<button class="refresh" onclick="location.reload()">Refresh</button></div>' +
       '<div class="tablewrap">' +
       (dataRows.length
-        ? '<table><thead><tr><th>Submitted</th><th>Full Name</th><th>Business</th><th>Type</th><th>WhatsApp</th><th></th></tr></thead><tbody>' + tableRows + '</tbody></table>'
+        ? '<table><thead><tr><th>Submitted</th><th>Full Name</th><th>Business</th><th>Type</th><th>WhatsApp</th><th>Terms &amp; privacy</th><th></th></tr></thead><tbody>' + tableRows + '</tbody></table>'
         : '<div class="empty">No submissions yet.</div>') +
       '</div></div>' +
       '<script>' +

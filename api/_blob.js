@@ -6,7 +6,7 @@ const XLSX = require('xlsx');
 // file rather than one blob per signup. Shared by the submit and download
 // endpoints so both agree on the path/schema.
 const BLOB_PATH = 'ticked-waitlist.xlsx';
-const HEADERS = ['Timestamp', 'Full Name', 'Business Name', 'Business Type', 'WhatsApp Number'];
+const HEADERS = ['Timestamp', 'Full Name', 'Business Name', 'Business Type', 'WhatsApp Number', 'Terms & Privacy'];
 const XLSX_CONTENT_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
 async function readWorkbookBuffer() {
@@ -33,7 +33,7 @@ async function readRows() {
 
 function rowsToBuffer(rows) {
   const ws = XLSX.utils.aoa_to_sheet(rows);
-  ws['!cols'] = [{ wch: 22 }, { wch: 22 }, { wch: 22 }, { wch: 28 }, { wch: 18 }];
+  ws['!cols'] = [{ wch: 22 }, { wch: 22 }, { wch: 22 }, { wch: 28 }, { wch: 18 }, { wch: 16 }];
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Waitlist');
   return XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
