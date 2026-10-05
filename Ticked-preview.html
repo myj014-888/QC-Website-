@@ -106,10 +106,50 @@
   .tk-hero-points span { position: relative; padding-left: 20px; font-size: 13.5px; color: var(--muted); }
   .tk-hero-points span::before { content: ""; position: absolute; left: 0; top: 7px; width: 9px; height: 5px; border: 2px solid var(--gold-bright); border-top: 0; border-right: 0; transform: rotate(-45deg); }
 
-  /* Feature grid: twelve plain cards, no icons — the words are the content. */
-  .tk-feat .card h3 { font-size: 17px; margin-bottom: 7px; line-height: 1.35; }
-  .tk-feat .card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
   .tk-pro { display: inline-block; margin-left: 7px; padding: 2px 8px; border-radius: 999px; font-family: 'Manrope'; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #07170d; background: linear-gradient(135deg, var(--gold-bright), var(--gold-deep)); vertical-align: 2px; }
+
+  /* ── FEATURE REEL ─────────────────────────────────────────────────────
+     Three states, one piece of markup:
+       (no JS)      a plain grid of cards — everything readable, nothing hidden
+       .is-swipe    one card at a time, swipeable, under 900px
+       .is-reel     cards on an ellipse, the front one large, 900px and up
+     Card i sits at angle i·step + rotation; cos of that angle places it,
+     sizes it and stacks it, so a card that looks nearer always is nearer. */
+  .tk-reel { position: relative; }
+  .tk-reel-stage { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .tk-rc { position: relative; background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 24px; }
+  .tk-rc h3 { font-size: 17px; margin-bottom: 7px; line-height: 1.35; }
+  .tk-rc p { font-size: 14px; color: var(--muted); line-height: 1.6; margin: 0; }
+
+  /* Swipe: a scroll-snap row. Native scrolling, so it feels right on a phone
+     and keeps working with a keyboard and a screen reader. */
+  .tk-reel-stage.is-swipe { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
+  .tk-reel-stage.is-swipe::-webkit-scrollbar { display: none; }
+  .tk-reel-stage.is-swipe .tk-rc { flex: 0 0 82%; scroll-snap-align: center; min-height: 170px; }
+
+  /* Reel */
+  .tk-reel-stage.is-reel { display: block; position: relative; height: 420px; touch-action: pan-y; cursor: grab; outline: none; }
+  .tk-reel-stage.is-reel:active { cursor: grabbing; }
+  .tk-reel-stage.is-reel:focus-visible { outline: 2px solid var(--gold); outline-offset: 6px; border-radius: 20px; }
+  .tk-reel-stage.is-reel .tk-rc {
+    position: absolute; left: 50%; top: 50%; width: 260px; min-height: 196px;
+    margin: -98px 0 0 -130px; display: flex; flex-direction: column; justify-content: center;
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45); will-change: transform;
+  }
+  /* The card at the front earns the green edge; the rest recede. */
+  .tk-reel-stage.is-reel .tk-rc[data-front] { border-color: rgba(34,197,94,0.45); box-shadow: 0 22px 50px rgba(0,0,0,0.55), 0 0 0 1px rgba(34,197,94,0.25); }
+
+  .tk-reel-ui { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 26px; }
+  .tk-reel-btn { width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: var(--text); cursor: pointer; transition: border-color .2s, background .2s; }
+  .tk-reel-btn:hover { border-color: rgba(34,197,94,0.5); background: rgba(34,197,94,0.08); }
+  .tk-reel-btn svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .tk-reel-dots { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; max-width: 60%; }
+  .tk-reel-dot { width: 7px; height: 7px; border-radius: 50%; padding: 0; border: 0; background: rgba(255,255,255,0.22); cursor: pointer; transition: background .2s, transform .2s; }
+  .tk-reel-dot[aria-current="true"] { background: var(--gold-bright); transform: scale(1.35); }
+
+  @media (max-width: 1100px) { .tk-reel-stage { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 680px)  { .tk-reel-stage { grid-template-columns: 1fr; } }
 
   /* Who it is for: the trades themselves, as a wrapped set of chips. */
   .tk-who { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 820px; margin: 0 auto; }
@@ -126,7 +166,6 @@
   .tk-band-note { color: rgba(255,255,255,0.65) !important; font-size: 13px !important; margin: 20px 0 0 !important; }
 
   /* Pricing */
-  .tk-price-foot { text-align: center; max-width: 640px; margin: 30px auto 0; font-size: 13.5px; color: var(--faint); line-height: 1.7; }
 
   /* Getting started: the same numbered chips as How it works. */
   .tk-start .card h3 { font-size: 16px; margin-bottom: 6px; }
@@ -134,7 +173,6 @@
   .tk-start .tk-step-num { margin-bottom: 14px; }
 
   @media (max-width: 1100px) {
-    .tk-feat { grid-template-columns: repeat(2, 1fr); }
     .tk-start { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 900px) {
@@ -142,7 +180,6 @@
     .tk-perks { grid-template-columns: 1fr; }
   }
   @media (max-width: 680px) {
-    .tk-feat { grid-template-columns: 1fr; }
     .tk-start { grid-template-columns: 1fr; }
     .tk-hero-points { gap: 8px 18px; }
   }
@@ -165,7 +202,6 @@
       <a class="lnk" href="#how-it-works">How it works</a>
       <a class="lnk" href="#features">What it does</a>
       <a class="lnk" href="#founders">Founders Club</a>
-      <a class="lnk" href="#pricing">Pricing</a>
       <a class="lnk" href="#faq">Questions</a>
       <a class="lnk" href="/contact">Contact</a>
     </div>
@@ -250,54 +286,68 @@
       <p style="color:var(--muted);">Not an auto-reply. It reads the message, checks the real diary and commits to a time.</p>
     </div>
 
-    <div class="grid g3 tk-feat" data-reveal-stagger>
-      <div class="card">
-        <h3>Books, moves and cancels</h3>
-        <p>Make a booking, shift it to Thursday, cancel it — all in the same chat. The calendar and the client stay in step.</p>
+    <!-- Cards ride an ellipse on a wide screen, swipe one at a time on a
+         phone, and stay a plain grid when JavaScript does not run. The markup
+         below is that grid; tk-reel.js is what turns it into the other two. -->
+    <div class="tk-reel" data-reveal>
+      <div class="tk-reel-stage" id="tk-reel-stage">
+        <article class="tk-rc" data-first>
+          <h3>Books, moves and cancels</h3>
+          <p>Make it, shift it, cancel it — all in the same chat. Calendar and client stay in step.</p>
+        </article>
+        <article class="tk-rc">
+          <h3>Real availability, per person</h3>
+          <p>Each team member&rsquo;s own calendar, hours, days off and the gap they need between clients.</p>
+        </article>
+        <article class="tk-rc">
+          <h3>The right person every time</h3>
+          <p>Ask for Sarah and you get Sarah. No preference? The work is spread fairly.</p>
+        </article>
+        <article class="tk-rc">
+          <h3>Google Calendar, both ways</h3>
+          <p>Bookings land in your calendar. Time you block there is respected.</p>
+        </article>
+        <article class="tk-rc">
+          <h3>Reminders that cut no-shows</h3>
+          <p>A reminder before the time, with Confirm and Cancel buttons. One tap.</p>
+        </article>
+        <article class="tk-rc">
+          <h3>Follow-ups after the visit</h3>
+          <p>A message afterwards, so the next booking starts itself.</p>
+        </article>
+        <article class="tk-rc">
+          <h3>Answers in your own words</h3>
+          <p>Prices, services, how long it takes, your policies. Written once, never wrong.</p>
+        </article>
+        <article class="tk-rc">
+          <h3>Every chat in one place</h3>
+          <p>Read any conversation. See the day or week, per team member.</p>
+        </article>
+        <article class="tk-rc">
+          <h3>Step in whenever you want <span class="tk-pro">Pro</span></h3>
+          <p>Take over a chat and type yourself. The assistant goes quiet until you hand it back.</p>
+        </article>
+        <article class="tk-rc">
+          <h3>Numbers you can act on <span class="tk-pro">Pro</span></h3>
+          <p>Booked, cancelled and moved — by day, week or month, per person. Counted exactly.</p>
+        </article>
+        <article class="tk-rc">
+          <h3>Logins for your team</h3>
+          <p>A staff member sees their own bookings and clients. Nothing else.</p>
+        </article>
+        <article class="tk-rc">
+          <h3>It stays yours</h3>
+          <p>Change services, prices, hours and policies yourself, any time.</p>
+        </article>
       </div>
-      <div class="card">
-        <h3>Real availability, per person</h3>
-        <p>Checks each team member's own calendar, working hours, days off and the gap they need between clients. It only offers a time somebody can actually work.</p>
-      </div>
-      <div class="card">
-        <h3>The right person every time</h3>
-        <p>A client who asks for Sarah gets Sarah. No preference? Ticked spreads the work fairly across whoever does that service.</p>
-      </div>
-      <div class="card">
-        <h3>Google Calendar, both ways</h3>
-        <p>Appointments land in your calendar and time you block there is respected. Each team member gets their own Ticked calendar.</p>
-      </div>
-      <div class="card">
-        <h3>Reminders that cut no-shows</h3>
-        <p>A reminder before the appointment with Confirm and Cancel buttons. A tap is all it takes, so you know who is coming.</p>
-      </div>
-      <div class="card">
-        <h3>Follow-ups after the visit</h3>
-        <p>A message after the appointment, so the next booking starts itself instead of waiting for the client to remember.</p>
-      </div>
-      <div class="card">
-        <h3>Answers your questions, in your words</h3>
-        <p>Prices, services, how long it takes, where you are, your cancellation policy. You write the answers once; it never gets them wrong.</p>
-      </div>
-      <div class="card">
-        <h3>Every chat in one dashboard</h3>
-        <p>Read any conversation and see the day or week per team member. On a phone, a tablet or a laptop.</p>
-      </div>
-      <div class="card">
-        <h3>Step in whenever you want <span class="tk-pro">Pro</span></h3>
-        <p>Take over a chat and type yourself, then hand it back. The assistant stops talking the moment you do.</p>
-      </div>
-      <div class="card">
-        <h3>Numbers you can act on <span class="tk-pro">Pro</span></h3>
-        <p>Bookings made, cancelled and moved, by day, week or month, and per team member. Counted exactly, not estimated.</p>
-      </div>
-      <div class="card">
-        <h3>Logins for your team</h3>
-        <p>Give a staff member their own login and they see their own bookings and clients — nothing else.</p>
-      </div>
-      <div class="card">
-        <h3>It stays yours</h3>
-        <p>Change services, prices, hours and policies yourself, any time. Ticked follows the rules you set.</p>
+      <div class="tk-reel-ui" hidden>
+        <button class="tk-reel-btn" type="button" data-dir="-1" aria-label="Previous feature">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="tk-reel-dots" id="tk-reel-dots"></div>
+        <button class="tk-reel-btn" type="button" data-dir="1" aria-label="Next feature">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
     </div>
   </div>
@@ -351,48 +401,6 @@
 
     <a class="btn" href="#waitlist">Claim a founding spot →</a>
     <p class="tk-band-note">Free to join the list. We only take on a few businesses at a time, so each one is set up properly.</p>
-  </div>
-</section>
-
-<!-- ── PRICING ──────────────────────────────────────────────────────────── -->
-<section class="blk" id="pricing">
-  <div class="wrap">
-    <div class="head" data-reveal data-scroll-fx="clip-reveal">
-      <span class="tag">Pricing</span>
-      <h2><span class="grad">Two plans.</span><br><span class="grad">No commission on bookings.</span></h2>
-      <p style="color:var(--muted);">A once-off setup, where we do the work for you, and a monthly fee. Cancel whenever you like.</p>
-    </div>
-
-    <div class="grid g2" style="max-width:860px;margin:0 auto;" data-reveal-stagger>
-      <div class="plan">
-        <div class="mono"><h4>Basic</h4><span class="pr grad">R400<small>/month</small></span></div>
-        <div class="subl">R1,500 once-off setup</div>
-        <ul>
-          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Books, moves and cancels appointments on WhatsApp</li>
-          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Real availability per team member</li>
-          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Google Calendar sync, both ways</li>
-          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Reminders with Confirm and Cancel, plus follow-ups</li>
-          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Dashboard: read every chat, see the calendar</li>
-          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Logins for your team</li>
-        </ul>
-        <a class="btn btn-ghost" href="#waitlist">Start with Basic</a>
-      </div>
-
-      <div class="plan pop">
-        <span class="badge-pop">Most chosen</span>
-        <div class="mono"><h4>Pro</h4><span class="pr grad">R600<small>/month</small></span></div>
-        <div class="subl">R2,000 once-off setup</div>
-        <ul>
-          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Everything in Basic</li>
-          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Step into any chat yourself, then hand it back</li>
-          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Analytics: booked, cancelled and moved, per team member</li>
-          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Exact counts by day, week or month</li>
-        </ul>
-        <a class="btn btn-primary" href="#waitlist">Start with Pro</a>
-      </div>
-    </div>
-
-    <p class="tk-price-foot" data-reveal>Extra team members R50 a month each. Founding members pay a discounted rate on both plans — we confirm yours before you commit to anything.</p>
   </div>
 </section>
 
@@ -508,6 +516,7 @@
 
 <script src="script.js"></script>
 <script src="effects.js"></script>
+<script src="tk-reel.js"></script>
 <script>
 (function () {
   var form = document.getElementById('tk-waitlist-form');
