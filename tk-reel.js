@@ -34,7 +34,7 @@
 
   var TAU = Math.PI * 2;
   var STEP = TAU / count;
-  var MIN_SCALE = 0.62;      // far side of the ring
+  var MIN_SCALE = 0.46;      // far side of the ring
   var HOLD = 2200;           // ms a card rests at the front
   var STEP_MS = 650;         // ms for one step
 
@@ -82,15 +82,30 @@
       var angle = i * STEP + rotation;
       var cos = Math.cos(angle);
       var sin = Math.sin(angle);
-      var scale = MIN_SCALE + (1 - MIN_SCALE) * ((cos + 1) / 2);
+      // t runs 0 at the back of the ring to 1 at the front; depth bends it so
+      // the drop happens fast. Twelve cards sit 30° apart, and on a plain
+      // cosine the card beside the front one is only four per cent smaller —
+      // near enough to compete with it for the eye. Cubed, it is a tenth
+      // smaller, a quarter as bright and visibly out of focus, and the front
+      // card is unmistakably the one being read.
+      var t = (cos + 1) / 2;
+      var depth = t * t * t;
+      var scale = MIN_SCALE + (1 - MIN_SCALE) * depth;
       var card = cards[i];
 
+      // The front card gets a few per cent on top of everything else, so it
+      // sits proud of the ring rather than merely at the end of it.
+      var pop = i === front ? 1.06 : 1;
       card.style.transform =
-        'translate(' + (sin * rx).toFixed(2) + 'px,' + ((1 - cos) * ry).toFixed(2) + 'px) scale(' + scale.toFixed(3) + ')';
+        'translate(' + (sin * rx).toFixed(2) + 'px,' + ((1 - cos) * ry).toFixed(2) + 'px) scale(' + (scale * pop).toFixed(3) + ')';
       card.style.zIndex = String(Math.round(scale * 1000));
-      // Behind the front card the text is small and half-hidden; dimming it
-      // stops the eye trying to read three cards at once.
-      card.style.opacity = (0.35 + 0.65 * ((cos + 1) / 2)).toFixed(3);
+      card.style.opacity = (0.05 + 0.95 * depth).toFixed(3);
+      // Out of focus as well as faint: the eye reads depth from sharpness
+      // before it reads it from size, so this is what stops the cards behind
+      // competing with the one being read.
+      card.style.filter = i === front ? 'none' : 'blur(' + ((1 - depth) * 6).toFixed(2) + 'px)';
+      // The far half of the ring is behind the front card and adds nothing.
+      card.style.visibility = depth < 0.04 ? 'hidden' : 'visible';
       if (i === front) card.setAttribute('data-front', '');
       else card.removeAttribute('data-front');
       // Only the card in front is in the reading order.
