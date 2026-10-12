@@ -193,7 +193,7 @@
           <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
         </svg>
         <div class="rb-text">
-          <div class="rb-score">5.0
+          <div class="rb-score"><span data-g-rating>5.0</span>
             <span class="stars">
               <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 7.1-1.01L12 2z"/></svg>
               <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 7.1-1.01L12 2z"/></svg>
@@ -202,7 +202,7 @@
               <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 7.1-1.01L12 2z"/></svg>
             </span>
           </div>
-          <div class="rb-sub">Google · 3 reviews</div>
+          <div class="rb-sub" data-g-count>Google · 3 reviews</div>
         </div>
       </a>
       <a class="review-badge" href="https://www.facebook.com/profile.php?id=61564081292097&amp;sk=reviews" target="_blank" rel="noopener">
@@ -218,7 +218,7 @@
       <div class="carousel-fade-l" aria-hidden="true"></div>
       <div class="carousel-fade-r" aria-hidden="true"></div>
       <div class="carousel-track reviews-track" data-reveal-stagger tabindex="0" role="region" aria-label="Client reviews">
-      <div class="card review-card">
+      <div class="card review-card" data-src="google">
         <div class="review-top">
           <div class="review-author">
             <div class="review-avatar">Z</div>
@@ -239,7 +239,7 @@
         <p class="review-quote">"Professional and they know what they doing"</p>
       </div>
 
-      <div class="card review-card">
+      <div class="card review-card" data-src="google">
         <div class="review-top">
           <div class="review-author">
             <div class="review-avatar">S</div>
@@ -260,7 +260,7 @@
         <p class="review-quote">"Massive thanks to the team at Quadcorp Digital for putting together our new website! They nailed the look and feel right out of the gate, and the whole build was surprisingly fast and hassle free. Couldn't be happier with how it turned out. 10/10 would recommend them to anyone!"</p>
       </div>
 
-      <div class="card review-card">
+      <div class="card review-card" data-src="google">
         <div class="review-top">
           <div class="review-author">
             <div class="review-avatar">C</div>
@@ -286,7 +286,7 @@
         <p class="review-quote">"Great experience! The concept they came up with was far better than I would have dreamt, they were quick on the small tweaks and always friendly and professional."</p>
       </div>
 
-      <div class="card review-card">
+      <div class="card review-card" data-src="facebook">
         <div class="review-top">
           <div class="review-author">
             <div class="review-avatar">L</div>
@@ -384,6 +384,83 @@
   </div>
 </footer>
 
+<script>
+// Live Google reviews. The cards in the HTML are the fallback: they stay as they are
+// unless /api/reviews answers with real reviews, in which case they are replaced.
+(function () {
+  var track = document.querySelector('.reviews-track');
+  if (!track || !window.fetch) return;
+
+  var STAR = '<svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 7.1-1.01L12 2z"/></svg>';
+
+  function buildCard(rv) {
+    var card = document.createElement('div');
+    card.className = 'card review-card';
+    card.setAttribute('data-src', 'google');
+
+    var top = document.createElement('div');
+    top.className = 'review-top';
+    var author = document.createElement('div');
+    author.className = 'review-author';
+    var avatar = document.createElement('div');
+    avatar.className = 'review-avatar';
+    avatar.textContent = (rv.author.trim().charAt(0) || 'G').toUpperCase();
+    var who = document.createElement('div');
+    var name = document.createElement('div');
+    name.className = 'ra-name';
+    if (/^https:\/\/(www\.)?google\.com\//.test(rv.url || '')) {
+      var a = document.createElement('a');
+      a.href = rv.url; a.target = '_blank'; a.rel = 'noopener nofollow';
+      a.textContent = rv.author;
+      name.appendChild(a);
+    } else {
+      name.textContent = rv.author;
+    }
+    var meta = document.createElement('div');
+    meta.className = 'ra-meta';
+    meta.textContent = 'Google Review';
+    who.appendChild(name); who.appendChild(meta);
+    author.appendChild(avatar); author.appendChild(who);
+    top.appendChild(author);
+    top.insertAdjacentHTML('beforeend', GOOGLE_ICON);
+
+    var stars = document.createElement('div');
+    stars.className = 'review-stars';
+    var n = Math.max(1, Math.min(5, Math.round(rv.rating)));
+    for (var i = 0; i < n; i++) stars.insertAdjacentHTML('beforeend', STAR);
+
+    var quote = document.createElement('p');
+    quote.className = 'review-quote';
+    quote.textContent = '"' + rv.text + '"';
+
+    card.appendChild(top); card.appendChild(stars); card.appendChild(quote);
+    return card;
+  }
+
+  var GOOGLE_ICON = (function () {
+    var old = track.querySelector('.review-card[data-src="google"] .review-source-ico');
+    return old ? old.outerHTML : '';
+  })();
+
+  fetch('/api/reviews', { headers: { 'Accept': 'application/json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.reviews || !d.reviews.length) return;
+      track.querySelectorAll('.review-card[data-src="google"]').forEach(function (c) { c.remove(); });
+      var anchor = track.firstElementChild; // the Facebook card, if present
+      d.reviews.forEach(function (rv) { track.insertBefore(buildCard(rv), anchor); });
+
+      var rating = document.querySelector('[data-g-rating]');
+      var count = document.querySelector('[data-g-count]');
+      if (rating && d.rating) rating.textContent = Number(d.rating).toFixed(1);
+      if (count && d.count) count.textContent = 'Google \u00b7 ' + d.count + ' review' + (d.count === 1 ? '' : 's');
+
+      track.scrollLeft = 0;
+      track.dispatchEvent(new Event('scroll')); // refresh the arrows and edge fades
+    })
+    .catch(function () { /* keep the built-in reviews */ });
+})();
+</script>
 <script src="script.js?v=5"></script>
 <script src="effects.js?v=14"></script>
 </body>
