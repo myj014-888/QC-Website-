@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20">
+<link rel="stylesheet" href="styles.css?v=19">
 <style>
   .legal { max-width: 760px; margin: 0 auto; }
   .legal .updated { color: var(--faint); font-size: 13px; margin-bottom: 48px; }
@@ -65,7 +65,7 @@
 
 <section class="blk" style="padding-top:20px;">
   <div class="wrap legal in-view" data-reveal>
-    <p class="updated">Last updated: 12 October 2026</p>
+    <p class="updated">Last updated: 13 October 2026</p>
 
     <div class="disclaimer">This policy describes what QuadCorp actually collects and how it's actually used, in plain language. It's provided as a good-faith summary of our practices, not a substitute for formal legal advice — if you need a policy certified for a specific regulatory purpose, please have it reviewed by a qualified attorney.</div>
 
@@ -78,7 +78,7 @@
     <h3>Joining the Ticked waitlist</h3>
     <p>The Ticked waitlist form collects your full name, business name, business type, and WhatsApp number. This is submitted directly to our systems and stored securely so we can reach out about early access.</p>
     <h3>Applying to onboard with Ticked</h3>
-    <p>If you apply to use Ticked, we collect more detailed information needed to set up the service on your behalf: your business name, contact email and phone number, the WhatsApp number bookings should alert, the services you offer (names, duration, pricing), your business hours, your cancellation and rescheduling policies, any other operating notes you provide, and your chosen plan. We also collect the names, roles, email addresses and services of the team members you add, and the email address each person uses to sign in to the Ticked dashboard. We record what administrators and users do in the dashboard in an audit log.</p>
+    <p>If you apply to use Ticked, we collect more detailed information needed to set up the service on your behalf: your business name, contact email and phone number, the WhatsApp number bookings should alert, the services you offer (names, duration, pricing), your business hours, your cancellation and rescheduling policies, any other operating notes you provide, and your chosen plan. We also collect the names, roles, email addresses and services of the team members you add, and the email address each person uses to sign in to the Ticked dashboard. We record what administrators and users do in the dashboard in an audit log. To protect the form from spam, it includes a hidden check and limits how many applications one email address can send; this uses no tracking. If we turn an application down, we delete its details 30 days later.</p>
     <h3>Automatically collected information</h3>
     <p>Like most websites, our hosting provider (Vercel) automatically logs standard technical information for security and reliability purposes — such as IP address, browser type, and request timestamps. We do not run analytics or advertising trackers on this site, and we do not use cookies to track you across other websites.</p>
 
@@ -106,7 +106,7 @@
     <p>We do not share your information with third parties for their own marketing purposes.</p>
 
     <h2>5. Data storage and security</h2>
-    <p>Information is stored with our hosting and database providers, Vercel and Supabase. Some of these providers process information outside South Africa, including in the United Kingdom and the United States. Waitlist and application data is kept in access-controlled storage; our admin views are protected by authentication, and we take reasonable technical measures to protect information from unauthorised access. No method of transmission or storage is perfectly secure, and we can't guarantee absolute security.</p>
+    <p>Information is stored with our hosting and database providers, Vercel and Supabase. Some of these providers process information outside South Africa, including in the United Kingdom and the United States. Waitlist and application data is kept in access-controlled storage; our admin views are protected by authentication, and our administrators' logins also require 2-step sign-in (a code from an authenticator app). Ticked dashboard users can turn on 2-step sign-in for their own logins too. We take reasonable technical measures to protect information from unauthorised access. No method of transmission or storage is perfectly secure, and we can't guarantee absolute security.</p>
     <p>To fix problems and keep Ticked running, authorised QuadCorp staff can view a Ticked business's dashboard, conversations and bookings. Where a conversation needs it, they can reply to a customer on the business's behalf, and the business can see that the conversation is being handled by Ticked support. Every time our staff view or act in a business's account, it is recorded in an audit log, which the business can ask to see.</p>
 
     <h2>6. How long we keep it</h2>
@@ -143,12 +143,13 @@
     <ul>
       <li>their WhatsApp number and the name on their WhatsApp profile;</li>
       <li>the text of their messages and the replies sent (images and voice notes are not processed);</li>
-      <li>booking details: the service, date and time, the team member, and whether the booking was confirmed, moved or cancelled;</li>
+      <li>booking details: the service, its price, the date and time, the team member, and whether the booking was confirmed, moved, cancelled or marked as a no-show;</li>
       <li>the matching entry on the business's calendar, which includes their name, the service and the time; and</li>
-      <li>when a reminder or follow-up was sent, and whether they tapped Confirm or Cancel.</li>
+      <li>when a reminder or follow-up was sent, whether WhatsApp delivered it, and whether they tapped Confirm or Cancel.</li>
     </ul>
+    <p>From this, the business sees a client list in its dashboard (each customer's name, number, visits, bookings and, on the Pro plan, what they have spent) and, on the Pro plan, its money figures (the value of completed and upcoming bookings). Team members do not see the client list or any money figures.</p>
     <h3>Why we process it</h3>
-    <p>Only to run the business's booking service: to answer questions about the business, make, move and cancel bookings, send reminders and follow-ups, tell the business owner and team members about their bookings, and give the business its own booking statistics. We do not use customers' messages for marketing, we do not sell them, and we do not use them to train models.</p>
+    <p>Only to run the business's booking service: to answer questions about the business, make, move and cancel bookings, send reminders and follow-ups, tell the business owner and team members about their bookings, and give the business its own client list, booking statistics and money figures. We do not use customers' messages for marketing, we do not sell them, and we do not use them to train models.</p>
     <h3>Automated replies</h3>
     <p>Ticked replies to customers using an AI assistant. It reads the recent messages in the conversation, replies, and can make, move or cancel appointments. The business can read every conversation, and on its Pro plan can take over a conversation at any time. If something goes wrong, Ticked support can also step into a conversation; the business can see when this happens.</p>
     <h3>Who we share it with</h3>
@@ -165,17 +166,19 @@
     <p>Some of these providers process information outside South Africa, including in the United Kingdom and the United States. We rely on each provider's contractual and legal commitments to protect personal information.</p>
     <h3>Security</h3>
     <ul>
-      <li>Each business can only see its own customers' information. Team members only see their own bookings and clients.</li>
+      <li>Each business can only see its own customers' information. Team members only see their own bookings and clients, and never the client list or money figures.</li>
+      <li>Dashboard logins can use 2-step sign-in, and it is required for Ticked's own administrators.</li>
       <li>Connections to Ticked are encrypted in transit.</li>
       <li>Access to our systems is restricted, and what our administrators do is recorded in an audit log.</li>
       <li>If we become aware of a security breach affecting a business's customers' information, we tell that business without delay, so it can meet its own duties to notify the Information Regulator and the people affected.</li>
     </ul>
     <h3>How long we keep it</h3>
-    <p>We keep a business's customer information for as long as that business uses Ticked, so the assistant has context and the business has its records. If a business cancels, or its account is suspended, its information is kept for 3 months so it can come back. After those 3 months, we permanently delete the business's information, including its customers' information, from our live systems, and the business must re-apply to use Ticked again. Before then, a business can ask us for an export of its customers' records. We keep only the records we are legally required to keep, such as invoices and payment records. In-app notifications are deleted automatically after 90 days.</p>
+    <p>We keep a business's customer information for as long as that business uses Ticked, so the assistant has context and the business has its records. If a business cancels, or its account is suspended, its information is kept for 3 months so it can come back. After those 3 months, we permanently delete the business's information, including its customers' information, from our live systems, and the business must re-apply to use Ticked again. Businesses cannot download their customer lists themselves. Before deletion, a business can ask us for an export of its client list and booking history, which we prepare and send to the business; every export is recorded in our audit log.</p>
+    <p>When a customer's information is deleted (by the business from its Contacts page, or by us on request), we delete their WhatsApp number, their messages and their entries on the business's calendar, and cancel any upcoming bookings. The business keeps a record of the customer's past bookings (their name, the service, date, team member and price) as part of its own business and financial records; these records no longer include the customer's number or messages. We keep only the records we are legally required to keep, such as invoices and payment records. In-app notifications are deleted automatically after 90 days.</p>
     <h3>Your rights as a customer of a Ticked business</h3>
-    <p>The business is your first point of contact for requests about your information. You may also contact us at <a href="mailto:quadcorp.co.za@gmail.com">quadcorp.co.za@gmail.com</a>. You can ask what information is held about you, ask for it to be corrected, or ask for it to be deleted. We can export or delete a customer's records for the business concerned on request.</p>
+    <p>The business is your first point of contact for requests about your information. You may also contact us at <a href="mailto:quadcorp.co.za@gmail.com">quadcorp.co.za@gmail.com</a>. You can ask what information is held about you, ask for it to be corrected, or ask for it to be deleted. The business can delete your information itself from its Contacts page, and we can export or delete a customer's records for the business concerned on request. We log every request we receive and the date we answered it.</p>
     <h3 id="delete-data" style="scroll-margin-top:100px;">How to delete your data</h3>
-    <p>To have your information deleted, email <a href="mailto:quadcorp.co.za@gmail.com?subject=Delete%20my%20data">quadcorp.co.za@gmail.com</a> with the subject "Delete my data". Tell us the WhatsApp number or email address your information is held under and, if you are a customer, the name of the business you messaged. We confirm who you are, then either delete what we hold or pass the request to the business that is responsible for it. We reply within 30 days. A business can also ask us to delete everything held for its account. If the law requires us to keep something, we will tell you.</p>
+    <p>To have your information deleted, email <a href="mailto:quadcorp.co.za@gmail.com?subject=Delete%20my%20data">quadcorp.co.za@gmail.com</a> with the subject "Delete my data". Tell us the WhatsApp number or email address your information is held under and, if you are a customer, the name of the business you messaged. We confirm who you are, then either delete what we hold or pass the request to the business that is responsible for it. Deleting removes your WhatsApp number, your messages and your calendar entries, and cancels any upcoming bookings; the business keeps a record of your past bookings under your name, without your number, as part of its business records. We reply within 30 days. A business can also ask us to delete everything held for its account. If the law requires us to keep something, we will tell you.</p>
 
     <h2 id="google-data" style="scroll-margin-top:100px;">13. How Ticked uses Google user data</h2>
     <h3>What we access</h3>

@@ -427,6 +427,11 @@
     <div id="error-banner" class="banner" role="alert"></div>
 
     <form id="intake-form" novalidate>
+      <!-- Spam trap: hidden from people, so only bots fill it in. -->
+      <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden">
+        <label for="company_website">Leave this empty</label>
+        <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+      </div>
       <section class="card">
         <p class="eyebrow">Business details</p>
         <div class="field">
@@ -534,6 +539,7 @@
 
 <script>
   const SUBMIT_URL = 'https://ticked-webhook.vercel.app/api/submit-application';
+  const FORM_STARTED_AT = Date.now();
   const DAYS = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
   const DAY_LABELS = { monday:'Mon', tuesday:'Tue', wednesday:'Wed', thursday:'Thu', friday:'Fri', saturday:'Sat', sunday:'Sun' };
 
@@ -754,6 +760,8 @@
     document.getElementById('error-banner').style.display = 'none';
 
     const payload = collectPayload();
+    payload.company_website = document.getElementById('company_website').value;
+    payload.form_started_at = FORM_STARTED_AT;
     if (!payload.business_name || !payload.contact_email) {
       showError('Please add your business name and email before submitting.');
       return;
