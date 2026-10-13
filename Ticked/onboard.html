@@ -499,16 +499,7 @@
 
       <section class="card">
         <p class="eyebrow">Your plan</p>
-        <div class="plan-grid">
-          <label class="plan-option">
-            <input type="radio" name="plan" value="basic" checked>
-            <div class="plan-card"><strong>Basic</strong><span>Ticked handles every booking conversation. You see all conversations and bookings in your dashboard.</span></div>
-          </label>
-          <label class="plan-option">
-            <input type="radio" name="plan" value="pro">
-            <div class="plan-card"><strong>Pro</strong><span>Everything in Basic, plus stepping into any chat yourself (human takeover) and an analytics dashboard.</span></div>
-          </label>
-        </div>
+        <div class="plan-card" style="border-color:var(--green);background:color-mix(in srgb, var(--green) 9%, var(--surface-2));"><strong>Ticked Essential</strong><span>Everything Ticked does: every booking conversation handled for you, all your chats and bookings in your dashboard, stepping into any chat yourself, your client list and your numbers.</span></div>
         <p class="hint" id="login-summary" style="margin-top:16px;">Choose which team members get their own dashboard login in the team section above.</p>
       </section>
 
@@ -611,7 +602,6 @@
       cancellation_policy: document.getElementById('cancellation_policy').value.trim(),
       rescheduling_policy: document.getElementById('rescheduling_policy').value.trim(),
       other_notes: document.getElementById('other_notes').value.trim(),
-      requested_tier: document.querySelector('input[name="plan"]:checked').value,
       staff: collectStaff(),
       desired_whatsapp_number: document.getElementById('desired_whatsapp_number').value.trim(),
       terms_accepted: document.getElementById('terms-check').checked,
