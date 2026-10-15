@@ -449,9 +449,9 @@
           </div>
         </div>
         <div class="field">
-          <label for="owner_whatsapp_number">WhatsApp number for booking alerts</label>
+          <label for="owner_whatsapp_number">Your own WhatsApp number</label>
           <input type="tel" id="owner_whatsapp_number" placeholder="082 123 4567">
-          <div class="hint">Where you'll get a message whenever a booking is made, changed or cancelled. Type it any way you like, for example 082 123 4567.</div>
+          <div class="hint">We send one test message here while setting you up, and use it if we need to reach you. Booking updates come to you in the Ticked app. Type it any way you like, for example 082 123 4567.</div>
           <div class="field-error" id="owner-error">That number doesn't look right. Please enter a full mobile number, for example 082 123 4567.</div>
         </div>
         <div class="field">
@@ -757,7 +757,7 @@
       return;
     }
     if (!checkOwnerNumber()) {
-      showError('Please check the WhatsApp number for booking alerts. It should be a full mobile number, for example 082 123 4567.');
+      showError('Please check your own WhatsApp number. It should be a full mobile number, for example 082 123 4567.');
       document.getElementById('owner_whatsapp_number').focus();
       return;
     }
