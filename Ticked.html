@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ticked — Automated WhatsApp Booking Assistant</title>
-<meta name="description" content="Ticked answers your WhatsApp, books straight into your Google Calendar, and follows up with clients automatically, even after hours. Join the waitlist.">
+<meta name="description" content="Ticked answers your WhatsApp, books straight into your Google Calendar, and follows up with clients automatically, even after hours. Introducing Ticked Essential. Join the waitlist.">
 <link rel="canonical" href="https://quadcorp.co.za/Ticked">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ticked by QuadCorp">
 <meta property="og:title" content="Ticked — Automated WhatsApp Booking Assistant">
-<meta property="og:description" content="Ticked answers your WhatsApp, books straight into your Google Calendar, and follows up with clients automatically, even after hours. Join the waitlist.">
+<meta property="og:description" content="Ticked answers your WhatsApp, books straight into your Google Calendar, and follows up with clients automatically, even after hours. Introducing Ticked Essential. Join the waitlist.">
 <meta property="og:url" content="https://quadcorp.co.za/Ticked">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ticked — Automated WhatsApp Booking Assistant">
-<meta name="twitter:description" content="Ticked answers your WhatsApp, books straight into your Google Calendar, and follows up with clients automatically, even after hours. Join the waitlist.">
+<meta name="twitter:description" content="Ticked answers your WhatsApp, books straight into your Google Calendar, and follows up with clients automatically, even after hours. Introducing Ticked Essential. Join the waitlist.">
 <link rel="icon" type="image/svg+xml" href="ticked-favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,14 +42,16 @@
   .tk-check-ico { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(34,197,94,0.14); border: 1px solid rgba(34,197,94,0.4); margin-top: 1px; }
   .tk-check-ico svg { width: 12px; height: 12px; stroke: var(--gold-bright); fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 
-  /* FOUNDING MEMBER banner */
+  /* GREEN BAND (pricing) */
   .tk-band { background: linear-gradient(135deg, #14532d 0%, #166534 55%, #15803d 100%); position: relative; overflow: hidden; }
   .tk-band::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(255,255,255,0.12), transparent 65%); pointer-events: none; }
   .tk-band .wrap { position: relative; z-index: 1; text-align: center; max-width: 620px; }
-  .tk-band h2 { color: #fff; font-size: clamp(28px, 4.5vw, 42px); margin-bottom: 14px; }
+  .tk-band h2 { color: #fff; font-size: clamp(28px, 4.5vw, 42px); margin-bottom: 14px; line-height: 1.15; }
   .tk-band p { color: rgba(255,255,255,0.82); margin-bottom: 28px; font-size: 15px; line-height: 1.65; }
   .tk-band .btn { background: #fff; color: #14532d; box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
   .tk-band .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0,0,0,0.32); }
+  .tk-band-tag { display: inline-block; padding: 6px 15px; border-radius: 999px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.3); margin-bottom: 18px; }
+  .tk-band-note { color: rgba(255,255,255,0.65) !important; font-size: 13px !important; margin: 20px 0 0 !important; }
 
   /* WAITLIST FORM */
   .tk-form-card { max-width: 520px; margin: 0 auto; text-align: left; }
@@ -91,70 +93,46 @@
   .tk-success-check { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-bright), var(--gold-deep)); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
   .tk-success-check svg { width: 20px; height: 20px; stroke: #07170d; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 
-  @media (max-width: 900px) {
-    .tk-steps { grid-template-columns: 1fr; }
-  }
-
-  /* ── REDESIGN ADDITIONS ───────────────────────────────────────────────── */
-
-  /* Hero: a live badge for the Founders Club, and the three claims under the
-     buttons that answer the first objections before they are raised. */
+  /* Hero: a live badge, and the three claims under the buttons. */
   .tk-tag-live { display: inline-flex; align-items: center; gap: 9px; }
   .tk-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold-bright); box-shadow: 0 0 0 0 rgba(74,222,128,0.55); animation: tk-pulse 2.4s ease-out infinite; }
   @keyframes tk-pulse { 70% { box-shadow: 0 0 0 9px rgba(74,222,128,0); } 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); } }
-  .tk-hero-points { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 30px; }
+  .tk-hero-points { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 26px; margin-top: 30px; }
   .tk-hero-points span { position: relative; padding-left: 20px; font-size: 13.5px; color: var(--muted); }
   .tk-hero-points span::before { content: ""; position: absolute; left: 0; top: 7px; width: 9px; height: 5px; border: 2px solid var(--gold-bright); border-top: 0; border-right: 0; transform: rotate(-45deg); }
-
 
   /* ── FEATURE REEL ─────────────────────────────────────────────────────
      Three states, one piece of markup:
        (no JS)      a plain grid of cards — everything readable, nothing hidden
        .is-swipe    one card at a time, swipeable, under 900px
-       .is-reel     cards on an ellipse, the front one large, 900px and up
-     Card i sits at angle i·step + rotation; cos of that angle places it,
-     sizes it and stacks it, so a card that looks nearer always is nearer. */
+       .is-reel     cards on an ellipse, the front one large, 900px and up */
   .tk-reel { position: relative; }
   .tk-reel-stage { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .tk-rc { position: relative; background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 24px; }
   .tk-rc h3 { font-size: 17px; margin-bottom: 7px; line-height: 1.35; }
   .tk-rc p { font-size: 14px; color: var(--muted); line-height: 1.6; margin: 0; }
-
-  /* Swipe: a scroll-snap row. Native scrolling, so it feels right on a phone
-     and keeps working with a keyboard and a screen reader. */
   .tk-reel-stage.is-swipe { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
   .tk-reel-stage.is-swipe::-webkit-scrollbar { display: none; }
   .tk-reel-stage.is-swipe .tk-rc { flex: 0 0 82%; scroll-snap-align: center; min-height: 170px; }
-
-  /* Reel */
   .tk-reel-stage.is-reel { display: block; position: relative; height: 440px; touch-action: pan-y; cursor: grab; outline: none; }
   .tk-reel-stage.is-reel:active { cursor: grabbing; }
   .tk-reel-stage.is-reel:focus-visible { outline: 2px solid var(--gold); outline-offset: 6px; border-radius: 20px; }
   .tk-reel-stage.is-reel .tk-rc {
     position: absolute; left: 50%; top: 50%; width: 300px; min-height: 200px;
     margin: -100px 0 0 -150px; display: flex; flex-direction: column; justify-content: center;
-    /* Opaque, not translucent: a card behind must never read through the card
-       in front of it. */
     background: linear-gradient(145deg, #15201a, #0e1612);
     box-shadow: 0 18px 40px rgba(0,0,0,0.55); will-change: transform, filter;
     transition: border-color .25s, box-shadow .25s;
   }
   .tk-reel-stage.is-reel .tk-rc h3 { font-size: 18px; }
   .tk-reel-stage.is-reel .tk-rc p { font-size: 14.5px; }
-
-  /* The card being read is the only lit thing in the section: a green rim, a
-     green glow under it, and brighter type than the ones falling away. */
   .tk-reel-stage.is-reel .tk-rc[data-front] {
     background: linear-gradient(145deg, #1b2b22, #101a15);
     border-color: rgba(74,222,128,0.65);
-    box-shadow:
-      0 0 0 1px rgba(74,222,128,0.35),
-      0 10px 28px rgba(34,197,94,0.22),
-      0 30px 70px rgba(0,0,0,0.65);
+    box-shadow: 0 0 0 1px rgba(74,222,128,0.35), 0 10px 28px rgba(34,197,94,0.22), 0 30px 70px rgba(0,0,0,0.65);
   }
   .tk-reel-stage.is-reel .tk-rc[data-front] h3 { color: #fff; }
   .tk-reel-stage.is-reel .tk-rc[data-front] p { color: rgba(236,231,221,0.86); }
-
   .tk-reel-ui { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 26px; }
   .tk-reel-btn { width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: var(--text); cursor: pointer; transition: border-color .2s, background .2s; }
   .tk-reel-btn:hover { border-color: rgba(34,197,94,0.5); background: rgba(34,197,94,0.08); }
@@ -162,17 +140,12 @@
   .tk-reel-dots { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; max-width: 60%; }
   .tk-reel-dot { width: 7px; height: 7px; border-radius: 50%; padding: 0; border: 0; background: rgba(255,255,255,0.22); cursor: pointer; transition: background .2s, transform .2s; }
   .tk-reel-dot[aria-current="true"] { background: var(--gold-bright); transform: scale(1.35); }
-
   @media (max-width: 1100px) { .tk-reel-stage { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 680px)  { .tk-reel-stage { grid-template-columns: 1fr; } }
 
-  /* Who it is for: the same sliding pills as the assessment page, rows
-     passing in opposite directions so the eye rests instead of reading a
-     block of sixteen names. Masked at both edges so nothing pops in. */
+  /* Who it is for: sliding pills, rows passing in opposite directions. */
   .tk-trades {
     display: flex; flex-direction: column; gap: 14px; overflow: hidden;
-    /* A row is as wide as its pills; without this the column stretches to match
-       and drags the page sideways with it. */
     width: 100%; max-width: 100%; min-width: 0;
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
     mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
@@ -180,12 +153,9 @@
   .tk-trade-row { display: flex; gap: 14px; width: max-content; flex: none; }
   .tk-trade-row.left { animation: marquee-scroll 44s linear infinite; }
   .tk-trade-row.right { animation: marquee-scroll-rev 52s linear infinite; }
-  /* A pointer anywhere over the block holds all three rows, so a name can be
-     read without chasing it. */
   .tk-trades:hover .tk-trade-row { animation-play-state: paused; }
   @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes marquee-scroll-rev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-
   .sol-pill {
     display: inline-flex; align-items: center; gap: 10px; padding: 13px 24px;
     border-radius: 999px; border: 1px solid rgba(255,255,255,0.09);
@@ -193,23 +163,10 @@
     white-space: nowrap; font-size: 14.5px; font-weight: 600; color: rgba(236,231,221,0.88);
   }
   .sol-pill svg { width: 15px; height: 15px; flex-shrink: 0; fill: none; stroke: var(--gold-bright); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-
   @media (prefers-reduced-motion: reduce) {
     .tk-trade-row { animation: none; }
     .tk-trades { overflow-x: auto; }
   }
-
-  /* Founders Club: the one loud block on the page. */
-  .tk-band-tag { display: inline-block; padding: 6px 15px; border-radius: 999px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.3); margin-bottom: 18px; }
-  .tk-band h2 { line-height: 1.15; }
-  .tk-perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 36px 0 34px; text-align: left; }
-  .tk-perk { background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.14); border-radius: 16px; padding: 22px; }
-  .tk-perk-num { font-family: 'Space Grotesk'; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: rgba(255,255,255,0.55); }
-  .tk-perk h3 { color: #fff; font-size: 16.5px; margin: 10px 0 7px; line-height: 1.35; }
-  .tk-perk p { color: rgba(255,255,255,0.72); font-size: 13.5px; line-height: 1.6; margin: 0; }
-  .tk-band-note { color: rgba(255,255,255,0.65) !important; font-size: 13px !important; margin: 20px 0 0 !important; }
-
-  /* Pricing */
 
   /* Getting started: the same numbered chips as How it works. */
   .tk-start .card h3 { font-size: 16px; margin-bottom: 6px; }
@@ -221,11 +178,35 @@
   }
   @media (max-width: 900px) {
     .tk-steps { grid-template-columns: 1fr; }
-    .tk-perks { grid-template-columns: 1fr; }
   }
   @media (max-width: 680px) {
     .tk-start { grid-template-columns: 1fr; }
     .tk-hero-points { gap: 8px 18px; }
+  }
+  /* TICKED ESSENTIAL: a light panel, the one bright block on a dark page. */
+  .tk-light { background: linear-gradient(180deg, #f6faf5 0%, #ecf5ee 100%); color: #0f1f15; }
+  .tk-light-head { text-align: center; max-width: 640px; margin: 0 auto; }
+  .tk-light-tag { display: inline-flex; padding: 6px 15px; border-radius: 999px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #15803d; background: #dcfce7; border: 1px solid #bbf7d0; margin-bottom: 18px; }
+  .tk-light h2 { color: #0f1f15; font-size: clamp(28px, 4.5vw, 42px); line-height: 1.15; margin-bottom: 14px; }
+  .tk-light-head p { color: #4b5d52; font-size: 15.5px; line-height: 1.65; }
+  .tk-plan { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); margin: 40px 0 8px; text-align: left; background: #fff; border: 1px solid #dfe9e2; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 60px rgba(15,31,21,0.08), 0 2px 6px rgba(15,31,21,0.04); }
+  .tk-plan-intro { padding: 32px; background: linear-gradient(160deg, #f0fdf4, #ffffff 70%); border-right: 1px solid #e6efe9; display: flex; flex-direction: column; }
+  .tk-plan-logo { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, #4ADE80, #16A34A); margin-bottom: 18px; box-shadow: 0 8px 20px rgba(22,163,74,0.25); }
+  .tk-plan-logo svg { width: 22px; height: 22px; fill: none; stroke: #07170d; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+  .tk-plan-name { font-family: 'Space Grotesk'; font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: #0f1f15; margin-bottom: 10px; }
+  .tk-plan-desc { font-size: 14.5px; line-height: 1.65; color: #4b5d52; margin-bottom: 26px; }
+  .tk-light .btn-primary { background: linear-gradient(135deg, #22C55E, #15803d); color: #fff; box-shadow: 0 10px 26px rgba(22,163,74,0.3); justify-content: center; margin-top: auto; }
+  .tk-light .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(22,163,74,0.38); }
+  .tk-plan-small { font-size: 12.5px; color: #6b7c72; margin-top: 12px; text-align: center; }
+  .tk-plan-list { list-style: none; padding: 32px; display: flex; flex-direction: column; gap: 14px; }
+  .tk-plan-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 14.5px; color: #1f3327; line-height: 1.5; }
+  .tk-light .tk-check-ico { background: #dcfce7; border-color: #86efac; }
+  .tk-light .tk-check-ico svg { stroke: #15803d; }
+  .tk-light-note { text-align: center; font-size: 13px; color: #6b7c72; margin-top: 22px; }
+  @media (max-width: 760px) {
+    .tk-plan { grid-template-columns: 1fr; }
+    .tk-plan-intro { border-right: 0; border-bottom: 1px solid #e6efe9; padding: 26px 22px; }
+    .tk-plan-list { padding: 26px 22px; }
   }
 </style>
 </head>
@@ -245,11 +226,11 @@
       <a class="lnk" href="/">Home</a>
       <a class="lnk" href="#how-it-works">How it works</a>
       <a class="lnk" href="#features">What it does</a>
-      <a class="lnk" href="#founders">Founders Club</a>
+      <a class="lnk" href="#essential">Ticked Essential</a>
       <a class="lnk" href="#faq">Questions</a>
       <a class="lnk" href="/contact">Contact</a>
     </div>
-    <a class="book" href="#waitlist">Claim a founding spot</a>
+    <a class="book" href="#waitlist">Join the waitlist</a>
   </nav>
 </header>
 
@@ -259,13 +240,13 @@
   <div class="hero-scrim"></div>
   <div class="hero-inner">
     <span class="tag tk-tag-live" data-scroll-fx="blur-stagger">
-      <span class="tk-dot"></span>Founders Club — first 50 businesses
+      <span class="tk-dot"></span>Now onboarding · Ticked Essential
     </span>
     <h1 style="margin-top:22px;"><span class="grad">Your WhatsApp books</span><br><span class="grad">while you work.</span></h1>
     <p class="sub">Ticked replies to every booking message on your WhatsApp, checks who is actually free, puts the appointment in your Google Calendar, and sends the reminder. Day, night, weekends. Your clients just send a message, like always.</p>
     <div class="cta">
-      <a class="btn btn-primary" href="#waitlist">Claim a founding spot →</a>
-      <a class="btn btn-ghost" href="#how-it-works">See how it works</a>
+      <a class="btn btn-primary" href="#waitlist">Join the waitlist →</a>
+      <a class="btn btn-ghost" href="#essential">What you get</a>
     </div>
     <div class="tk-hero-points">
       <span>No app for your clients</span>
@@ -464,33 +445,35 @@
   </div>
 </section>
 
-<!-- ── FOUNDERS CLUB ────────────────────────────────────────────────────── -->
-<section class="blk tk-band" id="founders" data-reveal data-scroll-fx="scale-in">
-  <div class="wrap" style="max-width:860px;">
-    <span class="tk-band-tag">Founders Club · 50 spots</span>
-    <h2>The first 50 businesses<br>shape what this becomes.</h2>
-    <p>We are opening Ticked to fifty South African businesses before anyone else. Founding members get more than an early login — they get a say in the product and a price that does not move.</p>
-
-    <div class="tk-perks">
-      <div class="tk-perk">
-        <span class="tk-perk-num">01</span>
-        <h3>Early access to everything new</h3>
-        <p>Every new feature reaches founding members first, while it can still be changed.</p>
-      </div>
-      <div class="tk-perk">
-        <span class="tk-perk-num">02</span>
-        <h3>A founding rate, locked in</h3>
-        <p>Discounted pricing that stays yours as the product grows and standard prices rise.</p>
-      </div>
-      <div class="tk-perk">
-        <span class="tk-perk-num">03</span>
-        <h3>Ask for what you need</h3>
-        <p>Tell us what your business actually needs built. Founding members' requests go to the front of the queue.</p>
-      </div>
+<!-- ── TICKED ESSENTIAL ─────────────────────────────────────────────────── -->
+<section class="blk tk-light" id="essential" data-reveal data-scroll-fx="scale-in">
+  <div class="wrap" style="max-width:960px;">
+    <div class="tk-light-head">
+      <span class="tk-light-tag">Introducing Ticked Essential</span>
+      <h2>Everything you need<br>to stop missing bookings.</h2>
+      <p>For now Ticked comes as one plan: Ticked Essential. Set up for you, month to month, no contracts.</p>
     </div>
 
-    <a class="btn" href="#waitlist">Claim a founding spot →</a>
-    <p class="tk-band-note">Free to join the list. We only take on a few businesses at a time, so each one is set up properly.</p>
+    <div class="tk-plan">
+      <div class="tk-plan-intro">
+        <span class="tk-plan-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5l3.3 3.3L17.5 8.2"/></svg></span>
+        <p class="tk-plan-name">Ticked Essential</p>
+        <p class="tk-plan-desc">Your 24/7 WhatsApp receptionist. It answers, books into your Google Calendar and keeps the appointment, so you can get on with the work.</p>
+        <a class="btn btn-primary" href="#waitlist">Join the waitlist →</a>
+        <p class="tk-plan-small">Free to join. We come back to you personally.</p>
+      </div>
+      <ul class="tk-plan-list">
+        <li><span class="tk-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Every booking chat answered, 24/7</li>
+        <li><span class="tk-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Books, moves and cancels straight into Google Calendar</li>
+        <li><span class="tk-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Reminders with Confirm and Cancel buttons</li>
+        <li><span class="tk-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Follow-ups after every visit</li>
+        <li><span class="tk-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Your dashboard: every chat, booking and client</li>
+        <li><span class="tk-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Step into any chat yourself, any time</li>
+        <li><span class="tk-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Your numbers: booked, cancelled and moved</li>
+        <li><span class="tk-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Set up and tested with you by our team</li>
+      </ul>
+    </div>
+    <p class="tk-light-note">We take on a few businesses at a time, so each one is set up properly.</p>
   </div>
 </section>
 
@@ -519,6 +502,10 @@
     </div>
     <div class="faq" data-reveal-stagger>
       <details>
+        <summary>What is Ticked Essential?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+        <div class="a-wrap"><div class="a-inner"><p>It is the plan Ticked launches with: the assistant answering and booking on your WhatsApp, reminders and follow-ups, and your dashboard with every chat, booking and client. We set it up and test it with you. Joining the waitlist is free and commits you to nothing; we talk you through the details when we come back to you.</p></div></div>
+      </details>
+      <details>
         <summary>Do my clients need to download anything?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
         <div class="a-wrap"><div class="a-inner"><p>No. They message your business on WhatsApp exactly as they do now. There is no app, no link and no form.</p></div></div>
       </details>
@@ -540,15 +527,11 @@
       </details>
       <details>
         <summary>How long until it is working?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
-        <div class="a-wrap"><div class="a-inner"><p>Once you have applied and the setup is paid, we build your assistant and send your logins. The parts that take time are approving your business number with WhatsApp and connecting your calendar — we walk you through both and test a real booking with you before you go live.</p></div></div>
+        <div class="a-wrap"><div class="a-inner"><p>Once you are off the waitlist, we build your assistant and send your logins. The parts that take time are approving your business number with WhatsApp and connecting your calendar — we walk you through both and test a real booking with you before you go live.</p></div></div>
       </details>
       <details>
         <summary>Can I cancel?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
         <div class="a-wrap"><div class="a-inner"><p>Yes, it is month to month. If you leave, your data is kept for three months in case you come back, and then permanently deleted apart from invoices we are legally required to keep.</p></div></div>
-      </details>
-      <details>
-        <summary>What does a founding spot actually cost?<span class="chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
-        <div class="a-wrap"><div class="a-inner"><p>Joining the list is free and commits you to nothing. We come back to you with your founding rate and what setup involves for your business, and you decide from there.</p></div></div>
       </details>
     </div>
   </div>
@@ -558,11 +541,11 @@
 <section class="blk" id="waitlist" style="background:rgba(255,255,255,0.015);border-top:1px solid rgba(255,255,255,0.05);">
   <div class="wrap">
     <div class="head" data-reveal data-scroll-fx="rise3d">
-      <span class="tag">Founders Club</span>
-      <h2><span class="grad">Claim one of</span><br><span class="grad">the 50 spots.</span></h2>
-      <p>Tell us about your business and we will come back to you personally — no payment, no obligation.</p>
+      <span class="tag">Waitlist</span>
+      <h2><span class="grad">Get on</span><br><span class="grad">the waitlist.</span></h2>
+      <p>We set up a few businesses at a time. Tell us about yours and we will come back to you personally — no payment, no obligation.</p>
     </div>
-<div class="card tk-form-card" data-reveal data-scroll-fx="scale-in">
+    <div class="card tk-form-card" data-reveal data-scroll-fx="scale-in">
       <form id="tk-waitlist-form" novalidate>
         <div class="tk-field">
           <label for="tk-name">Full name</label>
@@ -584,16 +567,13 @@
           <input id="tk-consent" name="consent" type="checkbox" required>
           <span>I agree to the <a href="/terms" target="_blank" rel="noopener">Terms of Service</a>
             and the <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>, and
-            to QuadCorp contacting me on WhatsApp about my founding spot.</span>
+            to QuadCorp contacting me on WhatsApp about Ticked.</span>
         </label>
         <button class="btn btn-primary tk-submit" type="submit">Join the waitlist →</button>
-        <p class="tk-form-note">No spam. We'll only reach out about your founding spot.</p>
+        <p class="tk-form-note">No spam. We'll only reach out about getting you set up.</p>
         <div class="tk-form-msg" id="tk-form-msg"></div>
       </form>
     </div>
-  </div>
-    </div>
-
   </div>
 </section>
 
@@ -602,7 +582,6 @@
     <div class="foot-bot"><span>&copy; 2026 Ticked. All Rights Reserved.</span><span>Built by QuadCorp · <a href="https://quadcorp.co.za/privacy" style="color:inherit;text-decoration:underline;">Privacy Policy</a> · <a href="https://quadcorp.co.za/terms" style="color:inherit;text-decoration:underline;">Terms of Service</a></span></div>
   </div>
 </footer>
-
 
 <script src="script.js"></script>
 <script src="effects.js"></script>
@@ -650,7 +629,7 @@
       form.reset();
       form.querySelectorAll('.tk-field, .tk-submit, .tk-form-note').forEach(function (el) { el.style.display = 'none'; });
       msg.className = 'tk-form-msg show ok';
-      msg.innerHTML = '<div class="tk-success-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><strong>You\'re on the list!</strong><br>We\'ll reach out personally about your founding spot.';
+      msg.innerHTML = '<div class="tk-success-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><strong>You\'re on the list!</strong><br>We\'ll reach out personally about getting you set up.';
     }).catch(function () {
       btn.disabled = false;
       btn.textContent = 'Join the waitlist →';
